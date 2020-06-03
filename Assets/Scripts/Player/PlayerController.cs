@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(Time.deltaTime.GetType());
         // 左スティック入力 角度・旋回
         Vector2 leftStick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
         transform.Rotate(new Vector3(0, leftStick.x, 0) * angleSpeed * speedMultiplier);
