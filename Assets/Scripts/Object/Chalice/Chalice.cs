@@ -17,11 +17,16 @@ public class Chalice : MonoBehaviour
     {
         currentState = state[num];
     }
-    // 重りに触れたら実行するメソッド
-    public void AddWeight(float scale)
-    {
-        weight += scale;
-    }
+    // 加えることができる重りである 砂・水 のオブジェクト
+    [SerializeField]
+    GameObject sand;
+    GameObject sandObject;
+    [SerializeField]
+    GameObject water;
+    GameObject waterObject;
+    // 加える重りの位置
+    [SerializeField]
+    Transform scalePosition;
     // 聖杯内から溢れたことを判定するために扱うオブジェクト
     [SerializeField]
     GameObject DropObject;
@@ -37,6 +42,23 @@ public class Chalice : MonoBehaviour
         // DropGameObjectPointの取得
         dropObjectPoint = transform.GetChild(0);
     }
+    // 重りに触れたら実行するメソッド
+    public void AddWeight(float scale)
+    {
+        weight += scale;
+    }
+    // 聖杯の中に砂を生成するメソッド
+    public void InstantiateSand()
+    {
+        sandObject = Instantiate(sand, scalePosition.position, Quaternion.identity) as GameObject;
+        sandObject.transform.parent = gameObject.transform;
+    }
+    // 聖杯の中に水を生成するメソッド
+    public void InstantiateWater()
+    {
+        sandObject = Instantiate(water, scalePosition.position, Quaternion.identity) as GameObject;
+        sandObject.transform.parent = gameObject.transform;
+    }
     // DropObjectを生成するメソッド
     void InstantiateDropObject()
     {
@@ -49,6 +71,14 @@ public class Chalice : MonoBehaviour
         // 空の状態・重さに変更
         ChangeState(0);
         weight = 1.0f;
+        // 重りの削除
+        foreach(Transform children in gameObject.transform)
+        {
+            if(children.gameObject.tag == "ScaleWeight")
+            {
+                Destroy(children.gameObject);
+            }
+        }
         // dropObjectの位置をリセット
         dropObject.transform.position = dropObjectPoint.position;
     }
@@ -68,6 +98,7 @@ public class Chalice : MonoBehaviour
         // 容器内のDropGameObjectが落ちたら実行する処理
         if(dropObjectScript.velocityY > 1.0f)
         {
+            Debug.Log(dropObjectScript.velocityY);
             Debug.Log("溢れたよ");
             DropScaleWeight();
         }

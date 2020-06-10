@@ -23,10 +23,10 @@ public class DropObject : MonoBehaviour
         {
             rb.isKinematic = false;
             velocityY = Mathf.Abs(rb.velocity.y);
-            // Debug.Log(velocityY + " : velocityY");
         }
         else
         {
+            velocityY = 0;
             rb.isKinematic = true;
         }
     }

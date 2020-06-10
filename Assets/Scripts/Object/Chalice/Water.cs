@@ -11,20 +11,18 @@ public class Water : ScaleWeight
         typeName = "Water";
         weight = 0.5f;
     }
-
-    public override float AddScaleWeight()
+    // 聖杯に触れたら、聖杯に水の重りを追加
+    public override void OnTriggerEnter(Collider other)
     {
-        return weight;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if( other.gameObject.tag == "Chalice")
+        {
+            // 聖杯の状態が空の時、下記を実行
+            if(other.gameObject.GetComponent<Chalice>().currentState == "empty")
+            {
+                other.gameObject.GetComponent<Chalice>().AddWeight(weight);
+                other.gameObject.GetComponent<Chalice>().ChangeState(1);
+                other.gameObject.GetComponent<Chalice>().InstantiateWater();
+            }
+        }
     }
 }
