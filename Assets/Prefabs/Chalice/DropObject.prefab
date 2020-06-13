@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7878044798410139465}
   - component: {fileID: 7878044798410139477}
   - component: {fileID: 8928731591794023415}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DropObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4edb0ddf138b9484a9a706787c2e6108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocityY: 0

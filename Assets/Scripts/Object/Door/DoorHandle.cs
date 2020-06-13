@@ -6,26 +6,26 @@ using UnityEngine;
 public class DoorHandle : MonoBehaviour
 {
     // 対辺の長さ
-    float dz = 0;
+    protected float dz = 0;
     // 隣辺の長さ
-    float dx;
+    protected float dx;
     // 半径の長さ
-    float radius;
+    protected float radius;
     // 角度
-    float deg;
+    protected float deg;
     // 移動後の角度
-    float posteriorAngle;
+    protected float posteriorAngle;
     // ドアに触れている手の位置のオブジェクト 変数群
     [SerializeField]
-    GameObject handPoint = null;
-    Transform handPointTransform;
-    HandPoint handPointScript;
+    protected GameObject handPoint = null;
+    protected Transform handPointTransform;
+    protected HandPoint handPointScript;
     // 回転の中心軸
     [SerializeField]
-    Transform centerPoint = null;
+    protected Transform centerPoint = null;
     // 回転させるドアのオブジェクト
     [SerializeField]
-    Transform door = null;
+    protected Transform door = null;
 
     void Reset()
     {
@@ -57,8 +57,6 @@ public class DoorHandle : MonoBehaviour
             handPointTransform.position = other.gameObject.transform.position;
         }
     }
-
-// 移動した後元の位置に戻ってカクカク動いてるように見える
     void Update()
     {
         // 対辺の取得 handPointのローカル座標から取得

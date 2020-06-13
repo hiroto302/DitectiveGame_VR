@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Update と FixedUpdate で記述を分けてPlayerControllerの機能を記述
-
-
 public class PlayerControllerSecond : MonoBehaviour
 {
     Rigidbody rb;
@@ -21,7 +19,6 @@ public class PlayerControllerSecond : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-
 
     void Update()
     {

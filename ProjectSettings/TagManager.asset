@@ -19,8 +19,8 @@ TagManager:
   - Player
   - GrabbableObject
   - Hand
-  - 
-  - 
+  - DropObject
+  - Scale
   - 
   - 
   - 

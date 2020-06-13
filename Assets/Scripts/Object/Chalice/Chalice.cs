@@ -93,13 +93,13 @@ public class Chalice : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(currentState + " : currentState");
-        Debug.Log(weight + ": weight");
+        // Debug.Log(currentState + " : currentState");
+        // Debug.Log(weight + ": weight");
         // 容器内のDropGameObjectが落ちたら実行する処理
         if(dropObjectScript.velocityY > 1.0f)
         {
             Debug.Log(dropObjectScript.velocityY);
-            Debug.Log("溢れたよ");
+            // Debug.Log("溢れたよ");
             DropScaleWeight();
         }
     }
