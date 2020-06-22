@@ -23,7 +23,7 @@ public class Message : MonoBehaviour
     // 使用する分割文字列
     // splitStringは全会話内容を1回で表示するメッセージに分割する時の分割文字列を設定。ここのデフォルでは<>。セパレーターの役割をするもの
     [SerializeField]
-    private string splitString = "<>";
+    public string splitString = "<>";
     // allMessageを<>で分割したメッセージ
     private string[] splitMessage;
     // 分割したメッセージが何番目のものであるか
@@ -60,31 +60,27 @@ public class Message : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(allMessage + ": allMessage before");
         // クリックアイコンの取得・非表示
         clickIcon = transform.Find("MessagePanel/Image").GetComponent<Image>();
         clickIcon.enabled = false;
         // Textの取得
-        messageText = GetComponentInChildren<Text>();
+        messageText = transform.Find("MessagePanel/Text").GetComponent<Text>();
         messageText.text = "";
-        // 表示するメッセージの設定
-        SetMessage(allMessage);
+        // Panelを非常時
+        transform.GetChild(0).gameObject.SetActive(false);
 
+        // 表示するメッセージの設定
+        // SetMessage(allMessage);
         // playerController = GameObject.Find("PlayerController");
         // moveController_Firststage = playerController.GetComponent<MoveController_FirstStage>();
         // aud = GetComponent<AudioSource>();
         // searchArea = GameObject.Find("SearchArea");
         // scopeScript = searchArea.GetComponent<MessageScopeScript>();
-        MessageStart();
+        // MessageStart();
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            SetMessagePanel(allMessage);
-            MessageStart();
-        }
         // 会話状態でない時、会話が設定されていない時、これ以降の処理を実行しない
         if(isStartMessage == false)
         {

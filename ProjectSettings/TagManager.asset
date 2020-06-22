@@ -7,6 +7,7 @@ TagManager:
   - Hand
   - ScaleWeight
   - Chalice
+  - PointingDirection
   layers:
   - Default
   - TransparentFX
