@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         pointingDirections = GameObject.FindGameObjectsWithTag("PointingDirection");
     }
 
-    void Start()
+    void Awake()
     {
         SetState(State.Normal);
     }
