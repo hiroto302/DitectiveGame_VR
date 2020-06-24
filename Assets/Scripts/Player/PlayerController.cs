@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        // Normalの状態時、移動可
-        if(currentState == State.Normal)
+        // Normal・Talkの状態時、移動可
+        if(currentState == State.Normal || currentState == State.Talk)
         {
             // 左スティック入力 角度・旋回
             Vector2 leftStick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);

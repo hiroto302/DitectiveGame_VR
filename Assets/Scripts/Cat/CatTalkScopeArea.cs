@@ -31,6 +31,7 @@ public class CatTalkScopeArea : TalkScopeArea
         // 相手がPlayerかつNormal状態である時
         if(other.tag == "Player" && playerController.currentState != PlayerController.State.Talk)
         {
+
             // 会話開始
             if(Input.GetKeyDown(KeyCode.T) || OVRInput.GetDown(OVRInput.Button.One))
             {
@@ -41,10 +42,15 @@ public class CatTalkScopeArea : TalkScopeArea
                 // アイコンを非表示
                 talkIcon.SetActive(false);
                 showIcon = false;
-                // 一言目を表示していくメソッドを記述していく
+                // 一言目を表示
                 catTalkController.Talk1();
-                // 次の選択肢を表示
             }
+        }
+        // 会話状態の時
+        else if(other.tag == "Player" && playerController.currentState == PlayerController.State.Talk)
+        {
+            // アイコン非表示
+            talkIcon.SetActive(false);
         }
     }
     void Update()

@@ -1636,7 +1636,7 @@ MonoBehaviour:
   cat: {fileID: 159006324}
   optionPanelController: {fileID: 2046848756}
   playercontroller: {fileID: 84438838}
-  talk1: 0
+  firstContact: 0
 --- !u!1 &159006323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  playerTransfrom: {fileID: 0}
+  playerTransfrom: {fileID: 498748470}
 --- !u!1 &159006325
 GameObject:
   m_ObjectHideFlags: 0
@@ -3131,6 +3131,7 @@ MonoBehaviour:
   optionName: "\u7279\u306B\u306A\u3057"
   meshRenderer: {fileID: 320430565}
   optionPanelController: {fileID: 2046848756}
+  catTalkController_1: {fileID: 0}
 --- !u!1 &364636625
 GameObject:
   m_ObjectHideFlags: 0
@@ -4449,12 +4450,12 @@ PrefabInstance:
     - target: {fileID: 8874068376614419042, guid: 7601e1beea2844804bc5667408965692,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.22
+      value: 1.186
       objectReference: {fileID: 0}
     - target: {fileID: 8874068376614419042, guid: 7601e1beea2844804bc5667408965692,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.73
+      value: 1.039
       objectReference: {fileID: 0}
     - target: {fileID: 8874068376614419042, guid: 7601e1beea2844804bc5667408965692,
         type: 3}
@@ -4503,6 +4504,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7601e1beea2844804bc5667408965692, type: 3}
+--- !u!4 &498748470 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8874068376614419042, guid: 7601e1beea2844804bc5667408965692,
+    type: 3}
+  m_PrefabInstance: {fileID: 498748469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &502534953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7827,6 +7834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 84438838}
+  catTalkController: {fileID: 159006322}
 --- !u!1001 &1448429785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11515,6 +11523,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Icon_Talk
+      objectReference: {fileID: 0}
+    - target: {fileID: 3433299079725888448, guid: 7223d12132d1245eaa799338d55e4699,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3433299079725888460, guid: 7223d12132d1245eaa799338d55e4699,
         type: 3}

@@ -22,7 +22,6 @@ public class CatOption1 : Option
     }
     public override void OptionExecution()
     {
-        Debug.Log("選択肢１に触れたよ");
         catTalkController_1.Talk2();
         // 選択後 panelを非表示
         optionPanelController.ShowPanel(false);

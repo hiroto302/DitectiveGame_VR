@@ -45,7 +45,7 @@ public class CatMessages : MonoBehaviour
                             +"試練内容の説明をするから、よく聞くことだにゃ！<>"
                             +"部屋には、「聖杯」が３つあるにゃ\nそして、その重さの合計を測る「はかり」があるにゃ<>"
                             +"このはかりは、「ある重さ以上」の時、「ふた」を閉めることができるにゃ<>"
-                            +"ある重さは、聖杯３つ分の重さと同じだにゃ\n聖杯は、砂と水を入れることで重さを変えることができるにゃ<>"
+                            +"ある重さは、聖杯３つ分の重さと同じだにゃ\n聖杯はe、砂と水を入れることで重さを変えることができるにゃ<>"
                             +"聖杯自身の重さを、「１」とした時\nそれに加えることがきる砂の重さも、「１」\n水が、だいたい「0.5」にゃ\n砂と水はどちらか一つし入れることができないにゃ<>"
                             +"ふたを閉めるとことで、部屋からでるための扉が開くにゃ\n一度扉を開けば閉じなくなり、閉じたはかりのふたは開くことができなくなるにゃ<>"
                             +"閉じてしまったら、フタの内側にある聖杯は持ち出すことが出来なくなるにゃ<>"
@@ -74,7 +74,15 @@ public class CatMessages : MonoBehaviour
     public string Message3()
     {
         string catMessage = "探偵への道のりは険しそうだにゃ";
-        return catMessage;
+        string catMessage1 = "ふたの外側の聖杯は僕が回収しとくにゃ";
+        if(UnityEngine.Random.Range(0, 2) == 0)
+        {
+            return catMessage;
+        }
+        else
+        {
+            return catMessage1;
+        }
     }
     // Debug用
     public string MessageTest()
@@ -84,12 +92,4 @@ public class CatMessages : MonoBehaviour
                             + "3ページ目";
         return catMessage;
     }
-
-    // セットした内容を話す
-
-    // // cat の message を追加するメソッド
-    // void AddMessage()
-    // {
-    //     catMessages.Add(CatMessage1());
-    // }
 }

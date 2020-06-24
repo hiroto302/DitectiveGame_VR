@@ -8,24 +8,22 @@ public class FirstStageSceneManager : MonoBehaviour
 {
     [SerializeField]
     PlayerController playerController = null;
+    [SerializeField]
+    CatTalkController_1 catTalkController = null;
     void Reset()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        catTalkController = GameObject.Find("Cat").GetComponent<CatTalkController_1>();
     }
     void Start()
     {
         Scene scene = SceneManager.GetActiveScene();
-        Debug.Log(scene + "+ scene");
-        Debug.Log(scene.name + "+ sceneName");
         // 1_stageでは最初猫の説明から始まるので、状態をTalkに変更
         if(scene.name == "1_stage")
         {
-            // playerController.SetState(PlayerController.State.Talk);
+            playerController.SetState(PlayerController.State.Talk);
+            catTalkController.FirstContactTalk();
         }
     }
 
-    void Update()
-    {
-        
-    }
 }
