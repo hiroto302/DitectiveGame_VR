@@ -7,7 +7,7 @@ using System;
 public class ChaliceScale : MonoBehaviour
 {
     // 重さの合計値
-    float totalWeight = 0;
+    public float totalWeight = 0;
     // 重さの合計値により決定する、移動場所を格納している親オブジェクト
     [SerializeField]
     Transform scalePointsParent = null;
@@ -28,6 +28,7 @@ public class ChaliceScale : MonoBehaviour
     float speed = 0.002f;
     // 符号 正(up) or 負(down)
     float sign;
+
     void Start()
     {
         // 移動位置の設定

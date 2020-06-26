@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // ScaleDoorに対応した機能を実装する
+// 横軸に中心に回転
+// このスクリプトではPlayerが直感的にDoorの開閉が可能だが、
+// 操作性をより簡易的にするためにScaleDoorControllerで実装を試みる
 public class ScaleDoorHandle : DoorHandle
 {
     void Start()

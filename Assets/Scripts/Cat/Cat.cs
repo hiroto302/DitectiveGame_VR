@@ -75,7 +75,6 @@ public class Cat : MonoBehaviour
             }
             if(Mathf.Abs(currentDirection - nextDirection) > 0.05f)
             {
-                Debug.Log(Mathf.Abs(currentDirection - nextDirection) + "：差");
                 animator.SetBool("TurnAround", true);
             }
             else
