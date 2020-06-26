@@ -1,27 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CatOption2 : Option
+// 猫のOption1
+public class CatOption1 : Option
 {
     [SerializeField]
-    CatTalkController_1 catTalkController_1 = null;
+    CatTalkController_1Stage catTalkController = null;
     void Awake()
     {
-        if(catTalkController_1 == null)
+        if(catTalkController == null)
         {
-            catTalkController_1 = transform.root.gameObject.GetComponent<CatTalkController_1>();
+            catTalkController = transform.root.gameObject.GetComponent<CatTalkController_1Stage>();
         }
     }
     public override string OptionName()
     {
-        optionName = "特になし";
+        optionName = "説明をきく";
         return optionName;
     }
     public override void OptionExecution()
     {
-        // Talk3を実行
-        catTalkController_1.Talk3();
+        catTalkController.Talk2();
         // 選択後 panelを非表示
         optionPanelController.ShowPanel(false);
     }

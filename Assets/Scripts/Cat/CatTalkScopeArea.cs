@@ -10,7 +10,7 @@ public class CatTalkScopeArea : TalkScopeArea
 
     CatMessages catMessages = null;
     [SerializeField]
-    CatTalkController_1 catTalkController = null;
+    CatTalkController_1Stage catTalkController = null;
     // Catのスクリプト
     Cat cat;
     void Start()
@@ -22,7 +22,7 @@ public class CatTalkScopeArea : TalkScopeArea
         }
         if(catTalkController == null)
         {
-            catTalkController = transform.root.gameObject.GetComponent<CatTalkController_1>();
+            catTalkController = transform.root.gameObject.GetComponent<CatTalkController_1Stage>();
         }
         cat = transform.parent.gameObject.GetComponent<Cat>();
     }
@@ -31,7 +31,7 @@ public class CatTalkScopeArea : TalkScopeArea
         // 相手がPlayerかつNormal状態である時
         if(other.tag == "Player" && playerController.currentState != PlayerController.State.Talk)
         {
-
+            talkIcon.SetActive(true);
             // 会話開始
             if(Input.GetKeyDown(KeyCode.T) || OVRInput.GetDown(OVRInput.Button.One))
             {

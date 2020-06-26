@@ -9,11 +9,11 @@ public class FirstStageSceneManager : MonoBehaviour
     [SerializeField]
     PlayerController playerController = null;
     [SerializeField]
-    CatTalkController_1 catTalkController = null;
+    CatTalkController_1Stage catTalkController = null;
     void Reset()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        catTalkController = GameObject.Find("Cat").GetComponent<CatTalkController_1>();
+        catTalkController = GameObject.Find("Cat").GetComponent<CatTalkController_1Stage>();
     }
     void Start()
     {

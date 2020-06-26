@@ -66,14 +66,13 @@ public class PlayerController : MonoBehaviour
             // move = (x * moveTarget.right.normalized + y * moveTarget.forward.normalized ) * moveSpeed * Time.deltaTime;
             transform.Translate(move, Space.World);
         }
-        // 会話状態の時のみ、左右の手のPointingDirectionを有効にする
         // HMD内にデバッグ表示方法 表示するものは一つにすること
         // OVRDebugConsole.Log(move.ToString("f5"));
         // OVRDebugConsole.instance.AddMessage(move.ToString() + " : Time.deltaTime", Color.white);
     }
 
     // 現在の状態を変更するメソッド
-     public void SetState(State state)
+    public void SetState(State state)
     {
         currentState = state;
         if(state == State.Normal)
@@ -87,7 +86,9 @@ public class PlayerController : MonoBehaviour
             ShowPointingDirection(true);
         }
     }
+
     // PointingDirectionの表示・非表示
+    // 会話状態の時のみ、左右の手のPointingDirectionを有効にする
     void ShowPointingDirection(bool show)
     {
         foreach(GameObject pointingDirection in pointingDirections)

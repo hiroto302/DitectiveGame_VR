@@ -12,19 +12,32 @@ public class Cat : MonoBehaviour
     }
     // Catの現在の状態
     public State currentState;
-    // Catの会話文を格納しているスクリプト
-    // [SerializeField]
-    // CatMessages catMessages = null;
-    // 表示する会話文を制御するスクリプト
-    // [SerializeField]
-    // Message message = null;
     // 振り向く速度
     float rotationSpeed = 1.0f;
+    // 振り向く相手(Player)
     [SerializeField]
     Transform playerTransfrom = null;
+    // playerのスクリプト
+    [SerializeField]
+    PlayerController playerController = null;
+
+    // animation
+    Animator animator;
+    // 経過時間
+    float elapsedTime = 0;
+    // 現在向いてる方向
+    float currentDirection;
+    // 一定時間経過した時向いてる方向
+    float nextDirection;
     void Reset()
     {
         playerTransfrom = GameObject.Find("Player").GetComponent<Transform>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+    }
+    void Awake()
+    {
+        // animatorの取得
+        animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -33,21 +46,56 @@ public class Cat : MonoBehaviour
     }
     void Update()
     {
-        // if(Input.GetKeyDown(KeyCode.T))
-        // {
-        //     currentState = State.Talk;
-        // }
-        Debug.Log(currentState + " currentState");
+        // 猫の状態をPlayerと同様にする
+        if(playerController.currentState == PlayerController.State.Normal && currentState != State.Normal)
+        {
+            SetState(State.Normal);
+        }
+        else if(playerController.currentState == PlayerController.State.Talk && currentState != State.Talk)
+        {
+            SetState(State.Talk);
+        }
+
         // 話す状態になる時行う処理
         if(currentState == State.Talk)
         {
             // Playerの方向を向かせる
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(playerTransfrom.position.x, transform.position.y, playerTransfrom.position.z) - transform.position), rotationSpeed * Time.deltaTime);
+
+            // 振り向きのアニメーション制御
+            if(elapsedTime < 0.2f)
+            {
+                currentDirection = transform.localEulerAngles.y;
+            }
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime > 0.2f)
+            {
+                nextDirection = transform.localEulerAngles.y;
+                elapsedTime = 0;
+            }
+            if(Mathf.Abs(currentDirection - nextDirection) > 0.05f)
+            {
+                Debug.Log(Mathf.Abs(currentDirection - nextDirection) + "：差");
+                animator.SetBool("TurnAround", true);
+            }
+            else
+            {
+                animator.SetBool("TurnAround", false);
+            }
         }
     }
     // 状態を変更するメソッド
     public void SetState(State state)
     {
         currentState = state;
+        // アニメーションの処理記述
+        if(state == State.Normal)
+        {
+            animator.SetBool("Talk", false);
+        }
+        else if(state == State.Talk)
+        {
+            animator.SetBool("Talk", true);
+        }
     }
 }

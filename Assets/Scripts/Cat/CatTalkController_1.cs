@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class CatTalkController_1 : CatTalkController
 {
     // 最初の対面時の会話フラグ
@@ -23,10 +22,6 @@ public class CatTalkController_1 : CatTalkController
         }
         // pageCount初期化
         pageCount = new int[1];
-    }
-    void Start()
-    {
-
     }
 
     // 各talkをスタートするメソッド

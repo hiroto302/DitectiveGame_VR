@@ -8,7 +8,7 @@ using System;
 public abstract class CatTalkController : MonoBehaviour
 {
     [SerializeField]
-    protected Message message = null;
+    protected CatMessageController message = null;
     [SerializeField]
     protected CatMessages catMessages = null;
     [SerializeField]
@@ -21,15 +21,15 @@ public abstract class CatTalkController : MonoBehaviour
     // 分割文字
     protected string[] splitKeyWord = new string[1];
     // Talk を開始する判定
-    protected bool[] talk;
+    public bool[] talk;
     // message を表示する判定
-    protected bool[] currentMessage;
+    public bool[] currentMessage;
     // 各message の Page数を格納
     protected int[] pageCount;
 
     void Reset()
     {
-        message = GetComponentInChildren<Message>();
+        message = GetComponentInChildren<CatMessageController>();
         catMessages = GetComponentInChildren<CatMessages>();
         cat = GetComponent<Cat>();
         optionPanelController = GetComponentInChildren<OptionPanelController>();
@@ -61,21 +61,4 @@ public abstract class CatTalkController : MonoBehaviour
     // Update関数に話の流れの処理を記述する
     public abstract void Update();
 
-    // void Update()
-    // {
-    //     if(talk1)
-    //     {
-    //         // int ageCount
-    //         if(message1)
-    //         {
-    //             StartTalk(catMessages.MessageTest());
-                
-    //             message1 = false;
-    //         }
-    //         if(Input.GetMouseButtonDown(0) || OVRInput.GetDown(OVRInput.Button.One))
-    //         {
-
-    //         }
-    //     }
-    // }
 }

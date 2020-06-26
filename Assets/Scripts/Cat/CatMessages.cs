@@ -7,7 +7,7 @@ using System;
 public class CatMessages : MonoBehaviour
 {
     [SerializeField]
-    Message message = null;
+    CatMessageController message = null;
     // 分割文字
     string[] splitKeyWord = new string[1];
     // ページ数(分割回数)
@@ -15,8 +15,8 @@ public class CatMessages : MonoBehaviour
     // List<string> catMessages = new List<string>();
     void Reset()
     {
-        // Message スクリプトの取得
-        message = transform.root.gameObject.GetComponentInChildren<Message>();
+        // CatMessageController スクリプトの取得
+        message = transform.root.gameObject.GetComponentInChildren<CatMessageController>();
     }
     void Start()
     {

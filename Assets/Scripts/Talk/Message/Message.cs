@@ -48,15 +48,8 @@ public class Message : MonoBehaviour
     // メッセージスタート
     public bool isStartMessage = false;
 
-    GameObject playerController;
-
-    // private MoveController_FirstStage moveController_Firststage;
-
-    private AudioSource aud;
-    public  AudioClip clickSE;
-    GameObject searchArea;
-    // MessageScopeScript scopeScript;
-
+    // private AudioSource aud;
+    // public  AudioClip clickSE;
 
     void Start()
     {
@@ -71,12 +64,10 @@ public class Message : MonoBehaviour
 
         // 表示するメッセージの設定
         // SetMessage(allMessage);
-        // playerController = GameObject.Find("PlayerController");
-        // moveController_Firststage = playerController.GetComponent<MoveController_FirstStage>();
-        // aud = GetComponent<AudioSource>();
-        // searchArea = GameObject.Find("SearchArea");
-        // scopeScript = searchArea.GetComponent<MessageScopeScript>();
         // MessageStart();
+        
+
+        // aud = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -89,12 +80,12 @@ public class Message : MonoBehaviour
         // 会話スタート
         else if(isStartMessage ==true)
         {
-            Debug.Log("会話開始");
-            // メッセージが終わっているか、メッセージがない場合、会話終了
+            // メッセージが終わっているか、メッセージがない場合
+            // 会話終了
             if (isEndMessage || allMessage == null)
             {
-                Debug.Log("会話終了");
                 isStartMessage =  false;
+                MessageEnd();
                 return;
             }
             // 1回に表示するメッセージを表示しきれていない時
@@ -190,8 +181,15 @@ public class Message : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    public void MessageStart()
+    // 下記の2つの処理は、このクラスを継承したもので,メッセージ開始と終わり時に行いたい処理を記述する
+    // message の表示開始
+    public virtual void MessageStart()
     {
         isStartMessage = true;
+    }
+    // messageが終了後の処理
+    public virtual void  MessageEnd()
+    {
+        
     }
 }
