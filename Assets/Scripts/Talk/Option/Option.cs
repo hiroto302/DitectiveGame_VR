@@ -15,7 +15,6 @@ public abstract class Option : MonoBehaviour
     public abstract string OptionName();
     // 選択を識別するためMaterial
     [SerializeField]
-    // protected Material material = null;
     protected MeshRenderer meshRenderer = null;
     // 初期の色(非選択時の色)
     protected Color color1 = new Color(250.0f / 255.0f, 250.0f/ 255.0f, 250.0f/ 255.0f);
@@ -34,7 +33,6 @@ public abstract class Option : MonoBehaviour
         // 選択肢の名称書き換え
         optionText.text = OptionName();
         // Materialの取得
-        // material = GetComponent<MeshRenderer>().material;
         meshRenderer = GetComponent<MeshRenderer>();
         SetEmissionColor(color1);
         // OptionPanelControllerの取得
