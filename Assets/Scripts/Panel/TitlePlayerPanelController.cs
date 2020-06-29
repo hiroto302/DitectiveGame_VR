@@ -10,13 +10,11 @@ public class TitlePlayerPanelController : FadePanelContoroller
     {
         // fadeOutにかける時間 7秒
         SetFadeOutTime(7.0f);
-        SetFadeInTime(7.0f);
     }
 
     public override void InitialImageColor()
     {
         // 初期の色 透明
-        // image.color = TransparentBlackColor();
-        image.color = BlackColor();
+        image.color = TransparentBlackColor();
     }
 }

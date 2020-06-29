@@ -27,15 +27,23 @@ public class TitleBGMController : BGM
 
     void Update()
     {
+        // fadeOut開始
         if(fadeOut)
         {
+            elapsedTime += Time.deltaTime;
+            // 音量の減少
+            audioSource.volume = initialVolume - decreaseRate * elapsedTime;
+            // fadeOut終了
             if(audioSource.volume < 0.01f)
             {
                 fadeOut = false;
             }
-            elapsedTime += Time.deltaTime;
-            // 音量の減少
-            audioSource.volume = initialVolume - decreaseRate * elapsedTime;
         }
+    }
+
+    // 他のスクリプトからfadeOutを開始させるメソッド
+    public void FadeOutStart()
+    {
+        fadeOut = true;
     }
 }
