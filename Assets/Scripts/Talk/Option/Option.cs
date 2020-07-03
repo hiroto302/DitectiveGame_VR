@@ -23,6 +23,9 @@ public abstract class Option : MonoBehaviour
     // Optionを表示しているPanelを操作するスクリプト
     [SerializeField]
     protected OptionPanelController optionPanelController = null;
+    // SE
+    [SerializeField]
+    SE se = null;
 
     // 選択された時、実行するメソッド
     public abstract void OptionExecution();
@@ -37,6 +40,8 @@ public abstract class Option : MonoBehaviour
         SetEmissionColor(color1);
         // OptionPanelControllerの取得
         optionPanelController = transform.root.gameObject.GetComponentInChildren<OptionPanelController>();
+        // SEの取得 optionをまとめている親のOptionPanelから取得
+        se = transform.parent.gameObject.GetComponent<SE>();
     }
 
     void Start()
@@ -45,10 +50,12 @@ public abstract class Option : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        // 選択肢に触れた時、色を変更
         if(other.gameObject.tag == "PointingDirection")
         {
+            // 選択肢に触れた時、色を変更
             SetEmissionColor(color2);
+            // 触れた時の音
+            se.PlaySE(0);
         }
     }
     void OnTriggerStay(Collider other)
@@ -57,11 +64,14 @@ public abstract class Option : MonoBehaviour
         if(other.gameObject.tag == "PointingDirection" && OVRInput.GetDown(OVRInput.Button.One))
         {
             OptionExecution();
+            // 選択時の音
+            se.PlaySE(0);
         }
         // Debug作業中の記述
         if(other.gameObject.tag == "PointingDirection" && Input.GetKeyDown(KeyCode.O))
         {
             OptionExecution();
+            se.PlaySE(0);
         }
     }
     void OnTriggerExit(Collider other)

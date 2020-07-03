@@ -17,6 +17,8 @@ public class Chalice : MonoBehaviour
     {
         currentState = state[num];
     }
+    // 現在加えられている重り
+    public string containedScale = null;
     // 加えることができる重りである 砂・水 のオブジェクト
     [SerializeField]
     GameObject sand;
@@ -36,11 +38,16 @@ public class Chalice : MonoBehaviour
     // DropObjectの変数
     GameObject dropObject;
     DropObject dropObjectScript;
+    // SE
+    [SerializeField]
+    SE se = null;
 
     void Reset()
     {
         // DropGameObjectPointの取得
         dropObjectPoint = transform.GetChild(0);
+        // SEの取得
+        se = GetComponent<SE>();
     }
     // 重りに触れたら実行するメソッド
     public void AddWeight(float scale)
@@ -81,6 +88,16 @@ public class Chalice : MonoBehaviour
         }
         // dropObjectの位置をリセット
         dropObject.transform.position = dropObjectPoint.position;
+        if(containedScale == "Water")
+        {
+            // 水が落ちる音
+            se.PlaySE(0);
+        }
+        else if(containedScale == "Sand")
+        {
+            // 砂が落ちる音
+            se.PlaySE(1);
+        }
     }
     void Start()
     {
@@ -93,13 +110,9 @@ public class Chalice : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log(currentState + " : currentState");
-        // Debug.Log(weight + ": weight");
-        // 容器内のDropGameObjectが落ちたら実行する処理
+        // 容器内が満たされている時,DropGameObjectが落ちたら実行する処理
         if(dropObjectScript.velocityY > 1.0f)
         {
-            Debug.Log(dropObjectScript.velocityY);
-            // Debug.Log("溢れたよ");
             DropScaleWeight();
         }
     }

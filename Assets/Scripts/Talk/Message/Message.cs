@@ -48,8 +48,9 @@ public class Message : MonoBehaviour
     // メッセージスタート
     public bool isStartMessage = false;
 
-    // private AudioSource aud;
-    // public  AudioClip clickSE;
+    // SE
+    [SerializeField]
+    SE se = null;
 
     void Start()
     {
@@ -62,11 +63,16 @@ public class Message : MonoBehaviour
         // Panelを非常時
         transform.GetChild(0).gameObject.SetActive(false);
 
+        // SE の取得
+        if(se != null)
+        {
+            se = GetComponent<SE>();
+        }
+
         // 表示するメッセージの設定
         // SetMessage(allMessage);
         // MessageStart();
         
-
         // aud = GetComponent<AudioSource>();
     }
 
@@ -140,7 +146,8 @@ public class Message : MonoBehaviour
                     clickIcon.enabled = false;
                     elapsedTime = 0f;
                     isOneMessage = false;
-                    // aud.PlayOneShot(clickSE);
+                    // クリック音再生
+                    se.PlaySE(0, 0.5f);
 
                     // メッセージが全部表示された後の処理。ゲームオブジェクト自体を非表示にする
                     if (messageNum >= splitMessage.Length)

@@ -18,6 +18,13 @@ public class NextStageDoorController : MonoBehaviour
     // DoorPats
     [SerializeField]
     GameObject doorParts = null;
+    // 経過時間
+    float elapsedTime = 0;
+    // SE
+    [SerializeField]
+    SE se = null;
+    // 音の発生
+    bool playSE = true;
 
     void Reset()
     {
@@ -25,6 +32,7 @@ public class NextStageDoorController : MonoBehaviour
         centerPoint = transform.GetChild(0).Find("CenterPoint");
         scaleDoorController = GameObject.Find("ScaleDoor").GetComponentInChildren<ScaleDoorController>();
         doorParts = transform.GetChild(0).gameObject;
+        se = GetComponent<SE>();
     }
 
     void Start()
@@ -38,12 +46,23 @@ public class NextStageDoorController : MonoBehaviour
         // 測りのドアが閉めきら時、扉をopenAngleの値だけ開く
         if(scaleDoorController.currentState == ScaleDoorController.State.Fixed && openAngle > 0)
         {
-            gameObject.transform.RotateAround(centerPoint.position, Vector3.up, anglerVelocity * Time.deltaTime);
-            openAngle -= anglerVelocity * Time.deltaTime;
-            // ドアの開閉を可能にする
-            if(doorParts.activeSelf == false)
+            elapsedTime += Time.deltaTime;
+            // 1秒後扉をOpen
+            if(elapsedTime > 1.0f)
             {
-                doorParts.SetActive(true);
+                if(playSE)
+                {
+                    // 扉が開く音
+                    se.PlaySE(0, 0.3f);
+                    playSE = false;
+                }
+                gameObject.transform.RotateAround(centerPoint.position, Vector3.up, anglerVelocity * Time.deltaTime);
+                openAngle -= anglerVelocity * Time.deltaTime;
+                // ドアの開閉を可能にする
+                if(doorParts.activeSelf == false)
+                {
+                    doorParts.SetActive(true);
+                }
             }
         }
     }

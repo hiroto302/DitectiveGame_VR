@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// ボタンをおす回数を取得し、その回数を減らす時、一括表示・次のページへ行く判定をすればバグることなくこの動作させることができる
+// 今回は_1stageの方で実装する
 public class CatTalkController_1 : CatTalkController
 {
     // 最初の対面時の会話フラグ

@@ -31,12 +31,16 @@ public class ScaleDoorController : MonoBehaviour
     float angularVelocity = -45.0f;
     // 扉が閉めきれられる角度;
     float closedValue = 155.0f;
+    // SE
+    [SerializeField]
+    SE se = null;
 
     void Reset()
     {
         chaliceScale = transform.root.gameObject.GetComponentInChildren<ChaliceScale>();
         door = transform.parent.gameObject.transform.parent;
         centerPoint = transform.parent.Find("CenterPoint");
+        se = GetComponent<SE>();
     }
 
     void Start()
@@ -83,6 +87,10 @@ public class ScaleDoorController : MonoBehaviour
     public void SetState(State state)
     {
         currentState = state;
-        // 扉が固定状態の時奥の扉を少し開く
+        if(state == State.Fixed)
+        {
+            // 固定される音
+            se.PlaySE(0);
+        }
     }
 }

@@ -13,6 +13,10 @@ public class CatTalkScopeArea : TalkScopeArea
     CatTalkController_1Stage catTalkController = null;
     // Catのスクリプト
     Cat cat;
+
+    // SE
+    [SerializeField]
+    SE se = null;
     void Start()
     {
         // 各変数の取得
@@ -25,6 +29,19 @@ public class CatTalkScopeArea : TalkScopeArea
             catTalkController = transform.root.gameObject.GetComponent<CatTalkController_1Stage>();
         }
         cat = transform.parent.gameObject.GetComponent<Cat>();
+        se = GetComponent<SE>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            showIcon = true;
+            // アイコンを表示
+            talkIcon.SetActive(true);
+            // アイコンを表示する音
+            se.PlaySE(0);
+        }
     }
     void OnTriggerStay(Collider other)
     {

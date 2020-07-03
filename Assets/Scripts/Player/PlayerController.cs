@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject[] pointingDirections = null;
 
+    // PlayerFootから取得
+    [SerializeField]
+    SE se = null;
+    // 経過時間
+    float elapsedTime = 0;
     void Reset()
     {
         if(!moveTarget)
@@ -41,6 +46,7 @@ public class PlayerController : MonoBehaviour
             moveTarget = GetComponentInChildren<OVRCameraRig>().transform.Find("TrackingSpace/CenterEyeAnchor");
         }
         pointingDirections = GameObject.FindGameObjectsWithTag("PointingDirection");
+        se = transform.Find("PlayerFoot").GetComponent<SE>();
     }
 
     void Awake()
@@ -65,6 +71,35 @@ public class PlayerController : MonoBehaviour
             move = (x * moveTarget.right.normalized + y * moveTarget.forward.normalized ) * moveSpeed * speedMultiplier;
             // move = (x * moveTarget.right.normalized + y * moveTarget.forward.normalized ) * moveSpeed * Time.deltaTime;
             transform.Translate(move, Space.World);
+
+            // 足音 方向・移動
+            if(Mathf.Abs(x) > 0.8f || Mathf.Abs(y) > 0.8f)
+            {
+                elapsedTime += Time.deltaTime;
+                if(elapsedTime > 0.8f)
+                {
+                    se.PlaySE(0, 0.5f);
+                    elapsedTime = 0;
+                }
+            }
+            else if(Mathf.Abs(x) > 0.5f || Mathf.Abs(y) > 0.5f)
+            {
+                elapsedTime += Time.deltaTime;
+                if(elapsedTime > 1.0f)
+                {
+                    se.PlaySE(0, 0.4f);
+                    elapsedTime = 0;
+                }
+            }
+            else if(Mathf.Abs(x) > 0.1f || Mathf.Abs(y) > 0.1f)
+            {
+                elapsedTime += Time.deltaTime;
+                if(elapsedTime > 1.5f)
+                {
+                    se.PlaySE(2, 0.3f);
+                    elapsedTime = 0;
+                }
+            }
         }
         // HMD内にデバッグ表示方法 表示するものは一つにすること
         // OVRDebugConsole.Log(move.ToString("f5"));

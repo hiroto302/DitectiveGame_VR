@@ -40,9 +40,10 @@ public class TitleSceneManager : SceneMethods
         {
             // クリック音再生
             se.PlaySE(0);
+            // ゲーム開始
             gameStart = true;
         }
-        // ゲーム開始
+
         if(gameStart)
         {
             elapsedTime += Time.deltaTime;

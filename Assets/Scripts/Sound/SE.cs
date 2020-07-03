@@ -43,4 +43,10 @@ public class SE : MonoBehaviour
     {
         audioSource.PlayOneShot(sE[n], volume);
     }
+    // 指定した音・音量・位置で再生するメソッド
+    public void PlaySE(int n, Vector3 position, float volume)
+    {
+        // PlayCliptAtPointは,Static関数
+        AudioSource.PlayClipAtPoint( sE[n], position, volume);
+    }
 }
