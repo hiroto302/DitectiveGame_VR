@@ -6,6 +6,8 @@ public class CatTalkController_1Stage : CatTalkController
 {
     [SerializeField]
     CatMessageController catMessageController = null;
+    [SerializeField]
+    SE se = null;
     // 最初の対面時の会話フラグ
     public bool firstContact = false;
 
@@ -58,6 +60,10 @@ public class CatTalkController_1Stage : CatTalkController
         {
             catMessageController = GetComponentInChildren<CatMessageController>();
         }
+        if(se == null)
+        {
+            se = GetComponent<SE>();
+        }
     }
 
     public override void Update()
@@ -78,6 +84,15 @@ public class CatTalkController_1Stage : CatTalkController
             // 一つ目のmessage表示
             if(currentMessage[0])
             {
+                // 猫の鳴き声
+                if(Random.Range(0, 2) == 0)
+                {
+                    se.PlaySE(0);
+                }
+                else
+                {
+                    se.PlaySE(1);
+                }
                 // messag1 を表示
                 StartTalk(catMessages.Message1());
                 // 1つ目のmessageが終了後2つ目のmessageを開始, CatMessageControllerで処理

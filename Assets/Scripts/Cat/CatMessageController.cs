@@ -33,10 +33,12 @@ public class CatMessageController : Message
         if(nextMessage1)
         {
             player.SetState(PlayerController.State.Talk);
+            // 次の文表示
             catTalkController.currentMessage[1] = true;
             nextMessage1 = false;
         }
     }
+    // 他スクリプトで次のMessageを表示させるためのメソッド
     public void NextMessage1()
     {
         nextMessage1 = true;
