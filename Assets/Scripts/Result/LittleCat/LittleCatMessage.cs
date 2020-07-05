@@ -25,11 +25,15 @@ public class LittleCatMessage : MonoBehaviour
     // 結果内容を制御するスクリプト
     [SerializeField]
     ResultShowController resultShowController = null;
+    // SE
+    [SerializeField]
+    SE se = null;
 
     void Reset()
     {
         // 他スクリプトの取得
         resultShowController = GameObject.Find("LittleCat").GetComponentInChildren<ResultShowController>();
+        se = GetComponent<SE>();
     }
 
     void Awake()
@@ -79,6 +83,8 @@ public class LittleCatMessage : MonoBehaviour
     public void StartMessage()
     {
         startMessage = true;
+        // SE 猫の声
+        se.PlaySE(0);
     }
 
     // メッセージ終了後に行う処理

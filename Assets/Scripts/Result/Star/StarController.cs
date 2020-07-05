@@ -28,14 +28,17 @@ public class StarController : MonoBehaviour
     // 経過時間
     float elapsedTime = 0;
     // 生成するスピード
-    float instantiateSpeed = 0.5f;
+    float instantiateSpeed = 1.0f;
 
     [SerializeField]
     ResultShowController resultShowController = null;
+    [SerializeField]
+    SE se = null;
 
     void Reset()
     {
         resultShowController = GameObject.Find("LittleCat").GetComponentInChildren<ResultShowController>();
+        se = GetComponent<SE>();
     }
     void Awake()
     {
@@ -66,6 +69,8 @@ public class StarController : MonoBehaviour
                 // 評価の数により生成する星のMaterial変更
                 if(evaluation > 0)
                 {
+                    // SE 星の生成音
+                    se.PlaySE(0);
                     star.GetComponent<Renderer>().sharedMaterial = starMaterial;
                     evaluation --;
                 }

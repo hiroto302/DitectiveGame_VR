@@ -17,6 +17,15 @@ public class EvaluationMessage : MonoBehaviour
     {
         set {getChalice = value;}
     }
+    // SE
+    [SerializeField]
+    SE se = null;
+
+    void Reset()
+    {
+        // SEの取得
+        se = GetComponent<SE>();
+    }
     void Awake()
     {
         // Textの取得
@@ -35,6 +44,8 @@ public class EvaluationMessage : MonoBehaviour
     public void ShowEvaluation()
     {
         gameObject.SetActive(true);
+        // SE 表示音
+        se.PlaySE(0);
     }
     // 内容の設定
     public void SetMessage()

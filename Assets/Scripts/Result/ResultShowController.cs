@@ -66,11 +66,18 @@ public class ResultShowController : MonoBehaviour
             if(catMessageShow)
             {
                 littleCatMessage.StartMessage();
+                catMessageShow = false;
             }
             // 星の表示
             if(starShow)
             {
-                starController.ShowStar();
+                elapsedTime += Time.deltaTime;
+                if(elapsedTime > 0.5f)
+                {
+                    starController.ShowStar();
+                    starShow = false;
+                    elapsedTime = 0;
+                }
             }
             // 評価文字の表示
             if(evaluationShow)
@@ -79,6 +86,7 @@ public class ResultShowController : MonoBehaviour
                 if(elapsedTime > 1.0f)
                 {
                     evaluationMessage.ShowEvaluation();
+                    evaluationShow = false;
                     // 全ての評価表示完了
                     showResult = false;
                 }
