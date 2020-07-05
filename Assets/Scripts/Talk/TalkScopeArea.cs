@@ -42,13 +42,7 @@ public class TalkScopeArea : MonoBehaviour
             // アイコンを表示する音
         }
     }
-    void OnTriggerStay(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            
-        }
-    }
+
     void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player")
@@ -58,6 +52,7 @@ public class TalkScopeArea : MonoBehaviour
             talkIcon.SetActive(false);
         }
     }
+
     void Update()
     {
         // アイコンを表示中のみ下記の処理を実行
