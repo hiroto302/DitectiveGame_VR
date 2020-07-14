@@ -28,6 +28,10 @@ public class ChaliceScale : MonoBehaviour
     float speed = 0.002f;
     // 符号 正(up) or 負(down)
     float sign;
+    // SE
+    [SerializeField]
+    SE se = null;
+    bool playSE = true;
 
     void Start()
     {
@@ -49,6 +53,16 @@ public class ChaliceScale : MonoBehaviour
         {
             totalWeight += other.gameObject.GetComponent<Chalice>().weight;
             sign = -1.0f;
+            // SE 音 柱の移動音
+            if(totalWeight >= 0 && totalWeight <= 3.0f)
+            {
+                se.PlaySE(0);
+            }
+            if(totalWeight >= 3.0f)
+            {
+                // 完了音のフラグ
+                playSE = true;
+            }
         }
     }
     void OnTriggerExit(Collider other)
@@ -57,6 +71,11 @@ public class ChaliceScale : MonoBehaviour
         {
             totalWeight -= other.gameObject.GetComponent<Chalice>().weight;
             sign = 1.0f;
+            // SE 音
+            if(totalWeight >= 0 && totalWeight <= 3.0f)
+            {
+                se.PlaySE(0);
+            }
         }
     }
 
@@ -66,6 +85,7 @@ public class ChaliceScale : MonoBehaviour
         if(totalWeight <= 3.0f )
         {
             nextPosition = scalePoints[Mathf.CeilToInt(totalWeight)].position;
+            // Debug.Log(Mathf.CeilToInt(totalWeight) + ": mct");
         }
 
         if(currentPosition != nextPosition)
@@ -81,6 +101,20 @@ public class ChaliceScale : MonoBehaviour
         {
             standardPoint.Translate(new Vector3(0, sign * speed, 0));
             second -= 1.0f;
+        }
+
+        Debug.Log(scalePoints[3].position + ": scp3");
+        Debug.Log(standardPoint.position + " : standard.position");
+        Debug.Log(totalWeight + " : tw");
+
+        // SE 重さが3以上の時の位置に移動が完了したことを知らせる音 (小数点以下の僅かな差が生まれるので下記の処理を行う)
+        if( Mathf.Abs(scalePoints[3].position.y - standardPoint.position.y) < 0.01f )
+        {
+            if(playSE)
+            {
+                se.PlaySE(1);
+                playSE = false;
+            }
         }
     }
 }
