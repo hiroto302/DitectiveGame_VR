@@ -25,7 +25,7 @@ public class OptionPanelController : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         clickIcon = transform.Find("OptionPanel/Image").GetComponent<Image>();
     }
-    void Start()
+    void Awake()
     {
         // 初期は非表示
         ShowPanel(false);
@@ -48,14 +48,14 @@ public class OptionPanelController : MonoBehaviour
     {
         optionPanel.SetActive(show);
         // 表示している時.Player Talk状態する記述を書くとPanelとPalyerの距離によっては選択しづらくなる恐れがある
-        if(show)
-        {
-            player.SetState(PlayerController.State.Talk);
-        }
-        if(!show)
-        {
-            player.SetState(PlayerController.State.Normal);
-        }
+        // if(show)
+        // {
+        //     player.SetState(PlayerController.State.Talk);
+        // }
+        // if(!show)
+        // {
+        //     player.SetState(PlayerController.State.Normal);
+        // }
     }
 
 }

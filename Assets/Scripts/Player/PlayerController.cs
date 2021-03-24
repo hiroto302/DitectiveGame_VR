@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Playerのスクリプト
 // オキュラスクエスト用 transform.TranslateによるPlayerの移動方法
@@ -31,8 +32,9 @@ public class PlayerController : MonoBehaviour
     Vector3 move = Vector3.zero;
 
     // Playerが指を指している方向 PointingDirection
+    // 右手のPointingDirection
     [SerializeField]
-    GameObject[] pointingDirections = null;
+    GameObject rightPointingDirection = null;
 
     // PlayerFootから取得
     [SerializeField]
@@ -45,13 +47,23 @@ public class PlayerController : MonoBehaviour
         {
             moveTarget = GetComponentInChildren<OVRCameraRig>().transform.Find("TrackingSpace/CenterEyeAnchor");
         }
-        pointingDirections = GameObject.FindGameObjectsWithTag("PointingDirection");
+        rightPointingDirection = GameObject.FindWithTag("PointingDirection");
         se = transform.Find("PlayerFoot").GetComponent<SE>();
     }
 
     void Awake()
     {
         SetState(State.Normal);
+        // Scene scene = SceneManager.GetActiveScene();
+        // // 1_stageでは最初猫の説明から始まるので、状態をTalkに変更
+        // if(scene.name == "1_stage")
+        // {
+        //     SetState(State.Talk);
+        // }
+        // else
+        // {
+        //     SetState(State.Normal);
+        // }
     }
     void Update()
     {
@@ -104,6 +116,7 @@ public class PlayerController : MonoBehaviour
         // HMD内にデバッグ表示方法 表示するものは一つにすること
         // OVRDebugConsole.Log(move.ToString("f5"));
         // OVRDebugConsole.instance.AddMessage(move.ToString() + " : Time.deltaTime", Color.white);
+        OVRDebugConsole.Log(currentState.ToString());
     }
 
     // 現在の状態を変更するメソッド
@@ -124,11 +137,9 @@ public class PlayerController : MonoBehaviour
 
     // PointingDirectionの表示・非表示
     // 会話状態の時のみ、左右の手のPointingDirectionを有効にする
+    // optionの実時、右手のAボタンを使用するので右手のPointingDirectionを表示することに変更
     void ShowPointingDirection(bool show)
     {
-        foreach(GameObject pointingDirection in pointingDirections)
-        {
-            pointingDirection.SetActive(show);
-        }
+        rightPointingDirection.SetActive(show);
     }
 }

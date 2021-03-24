@@ -20,9 +20,11 @@ public class CatOption2 : Option
     }
     public override void OptionExecution()
     {
-        // Talk3を実行
-        catTalkController.Talk3();
+        // optionの色リセッそ
+        SetEmissionColor(color1);
         // 選択後 panelを非表示
         optionPanelController.ShowPanel(false);
+        // Talk3を実行
+        catTalkController.Talk3();
     }
 }

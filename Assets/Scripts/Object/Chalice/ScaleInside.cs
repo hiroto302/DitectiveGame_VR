@@ -10,7 +10,6 @@ public class ScaleInside : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("発動したよ");
         if(other.gameObject.tag == "Chalice")
         {
             // 内側の聖杯の数増加
@@ -24,10 +23,5 @@ public class ScaleInside : MonoBehaviour
             // 内側の聖杯の数減少
             insideChalice --;
         }
-    }
-
-    void Update()
-    {
-        Debug.Log(insideChalice + ": insideChalice");
     }
 }

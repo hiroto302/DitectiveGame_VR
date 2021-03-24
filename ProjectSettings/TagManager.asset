@@ -22,12 +22,12 @@ TagManager:
   - Hand
   - DropObject
   - Scale
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PointingDirection
+  - Option
+  - Chalice
+  - DropObject
+  - Sand
+  - Water
   - 
   - 
   - 

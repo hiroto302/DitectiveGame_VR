@@ -7,7 +7,8 @@ public class DebugSetting : MonoBehaviour
 {
     void Start()
     {
-        Debug.unityLogger.logEnabled = true;
+        // Debug.Log で出力しているもののみ非表示
+        // Debug.unityLogger.logEnabled = false;
     }
 
 }

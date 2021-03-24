@@ -28,14 +28,17 @@ public class CatMessageController : Message
     }
     public override void MessageEnd()
     {
-        // Playerの状態をNormalに変更
-        player.SetState(PlayerController.State.Normal);
         if(nextMessage1)
         {
             player.SetState(PlayerController.State.Talk);
             // 次の文表示
             catTalkController.currentMessage[1] = true;
             nextMessage1 = false;
+        }
+        else
+        {
+            // Playerの状態をNormalに変更
+            player.SetState(PlayerController.State.Normal);
         }
     }
     // 他スクリプトで次のMessageを表示させるためのメソッド

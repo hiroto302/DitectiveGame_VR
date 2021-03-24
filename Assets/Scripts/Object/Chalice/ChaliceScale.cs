@@ -22,7 +22,7 @@ public class ChaliceScale : MonoBehaviour
     Vector3 nextPosition;
     // 現在位置から次の移動位置までの距離 (0.2 間隔の距離)
     float distance;
-    // 移動までにかかる時間 ()
+    // 移動までにかかる時間 (移動にかかるフレームの回数)
     float second;
     // 移動スピード (0.2 を割り切ることができる値)
     float speed = 0.002f;
@@ -85,7 +85,6 @@ public class ChaliceScale : MonoBehaviour
         if(totalWeight <= 3.0f )
         {
             nextPosition = scalePoints[Mathf.CeilToInt(totalWeight)].position;
-            // Debug.Log(Mathf.CeilToInt(totalWeight) + ": mct");
         }
 
         if(currentPosition != nextPosition)
@@ -102,10 +101,6 @@ public class ChaliceScale : MonoBehaviour
             standardPoint.Translate(new Vector3(0, sign * speed, 0));
             second -= 1.0f;
         }
-
-        Debug.Log(scalePoints[3].position + ": scp3");
-        Debug.Log(standardPoint.position + " : standard.position");
-        Debug.Log(totalWeight + " : tw");
 
         // SE 重さが3以上の時の位置に移動が完了したことを知らせる音 (小数点以下の僅かな差が生まれるので下記の処理を行う)
         if( Mathf.Abs(scalePoints[3].position.y - standardPoint.position.y) < 0.01f )

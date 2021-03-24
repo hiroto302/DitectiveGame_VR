@@ -93,7 +93,7 @@ public class StarController : MonoBehaviour
     {
         evaluation = n;
     }
-    
+
     // 表示終了後の処理
     void ShowEnd()
     {

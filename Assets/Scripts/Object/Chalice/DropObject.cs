@@ -14,20 +14,32 @@ public class DropObject : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         // Caliceの状態取得
-        chaliceScript = transform.root.gameObject.GetComponent<Chalice>();
+        chaliceScript = transform.root.gameObject.GetComponentInChildren<Chalice>();
     }
 
     void Update()
     {
         if(chaliceScript.currentState == "fill")
         {
-            rb.isKinematic = false;
+            // rb.isKinematic = false;
             velocityY = Mathf.Abs(rb.velocity.y);
         }
         else
         {
             velocityY = 0;
             rb.isKinematic = true;
+        }
+    }
+
+    public void ChangeIsKinematic()
+    {
+        if(!rb.isKinematic)
+        {
+            rb.isKinematic = true;
+        }
+        else if(rb.isKinematic)
+        {
+            rb.isKinematic = false;
         }
     }
 }

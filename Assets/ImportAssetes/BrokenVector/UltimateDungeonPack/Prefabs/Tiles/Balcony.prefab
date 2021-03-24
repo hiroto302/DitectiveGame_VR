@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2470529085378675637}
   - component: {fileID: 2470529085379772789}
   - component: {fileID: 483983107}
-  - component: {fileID: 782624098067285928}
   m_Layer: 0
   m_Name: Balcony
   m_TagString: Untagged
@@ -92,17 +91,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.03962768, y: 0.03981345, z: 0.002505273}
   m_Center: {x: -0.0000051604584, y: 0.000000003725291, z: -0.0010803692}
---- !u!64 &782624098067285928
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2470529085382041525}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: b5bc1dd11c6f2254390d709ebc8d40b5, type: 3}

@@ -60,7 +60,7 @@ public class Message : MonoBehaviour
         // Textの取得
         messageText = transform.Find("MessagePanel/Text").GetComponent<Text>();
         messageText.text = "";
-        // Panelを非常時
+        // Panelを非表示
         transform.GetChild(0).gameObject.SetActive(false);
 
         // SE の取得
@@ -72,7 +72,7 @@ public class Message : MonoBehaviour
         // 表示するメッセージの設定
         // SetMessage(allMessage);
         // MessageStart();
-        
+
         // aud = GetComponent<AudioSource>();
     }
 
@@ -152,11 +152,8 @@ public class Message : MonoBehaviour
                     // メッセージが全部表示された後の処理。ゲームオブジェクト自体を非表示にする
                     if (messageNum >= splitMessage.Length)
                     {
-                        // moveController_Firststage.SetState(MoveController_FirstStage.State.Normal);
-                        // toriiWall.SetActive(false);
                         isEndMessage = true;
                         transform.GetChild(0).gameObject.SetActive(false);
-                        // scopeScript.icon = false;
                     }
                 }
             }
@@ -197,6 +194,5 @@ public class Message : MonoBehaviour
     // messageが終了後の処理
     public virtual void  MessageEnd()
     {
-        
     }
 }

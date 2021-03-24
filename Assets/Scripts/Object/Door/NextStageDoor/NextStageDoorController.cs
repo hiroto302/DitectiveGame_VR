@@ -39,7 +39,6 @@ public class NextStageDoorController : MonoBehaviour
     {
         // ドアをできないよにする
         doorParts.SetActive(false);
-        Debug.Log(doorParts.activeSelf + ": da" );
     }
     void Update()
     {
