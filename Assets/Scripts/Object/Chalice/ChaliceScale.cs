@@ -23,7 +23,7 @@ public class ChaliceScale : MonoBehaviour
     // 現在位置から次の移動位置までの距離 (0.2 間隔の距離)
     float distance;
     // 移動までにかかる時間 (移動にかかるフレームの回数)
-    float second;
+    float second = 0;
     // 移動スピード (0.2 を割り切ることができる値)
     float speed = 0.002f;
     // 符号 正(up) or 負(down)
@@ -62,6 +62,7 @@ public class ChaliceScale : MonoBehaviour
     {
         if(other.gameObject.tag == "Chalice")
         {
+            // 聖杯を置いた時、重さが増加
             if(OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) == 0 && intoChaliceScale == true)
             {
                 totalWeight += other.gameObject.GetComponent<Chalice>().weight;
@@ -76,6 +77,8 @@ public class ChaliceScale : MonoBehaviour
                     // 完了音のフラグ
                     playSE = true;
                 }
+                // 聖杯の位置更新
+                other.gameObject.GetComponent<Chalice>().SetChalicePosition(Chalice.ChalicePosition.InScale);
                 // chaliceを置いた時、侵入フラグの初期化
                 intoChaliceScale = false;
             }
@@ -85,12 +88,17 @@ public class ChaliceScale : MonoBehaviour
     {
         if(other.gameObject.tag == "Chalice")
         {
-            totalWeight -= other.gameObject.GetComponent<Chalice>().weight;
-            sign = 1.0f;
-            // SE 音
-            if(totalWeight >= 0 && totalWeight <= 3.0f)
+            // 置いてある重りを測りから取り除いた時、重さが減少
+            if(!intoChaliceScale)
             {
-                se.PlaySE(0);
+                totalWeight -= other.gameObject.GetComponent<Chalice>().weight;
+                sign = 1.0f;
+                // SE 音
+                if(totalWeight >= 0 && totalWeight <= 3.0f)
+                {
+                    se.PlaySE(0);
+                }
+                other.gameObject.GetComponent<Chalice>().SetChalicePosition(Chalice.ChalicePosition.OutScale);
             }
             // 聖杯を取り出した時、侵入フラグの初期化
             intoChaliceScale = false;
@@ -102,11 +110,14 @@ public class ChaliceScale : MonoBehaviour
         // 次に移動する場所
         if(totalWeight <= 3.0f )
         {
+            // 重さの変化に合わせ、移動場所を決定
             nextPosition = scalePoints[Mathf.CeilToInt(totalWeight)].position;
         }
 
         if(currentPosition != nextPosition)
         {
+            // 移動中,聖杯を掴めなくする
+            ChangeGrabbableState(false);
             // 距離の取得 (0.2の倍数で取得するために下記の処理を行う)
             distance = Mathf.Round((nextPosition - currentPosition).magnitude * 10.0f) * 0.1f;
             // 移動にかかる時間の取得
@@ -118,6 +129,11 @@ public class ChaliceScale : MonoBehaviour
         {
             standardPoint.Translate(new Vector3(0, sign * speed, 0));
             second -= 1.0f;
+            if(second == 0)
+            {
+                // 聖杯を掴めるようにする
+                ChangeGrabbableState(true);
+            }
         }
 
         // SE 重さが3以上の時の位置に移動が完了したことを知らせる音 (小数点以下の僅かな差が生まれるので下記の処理を行う)
@@ -127,6 +143,21 @@ public class ChaliceScale : MonoBehaviour
             {
                 se.PlaySE(1);
                 playSE = false;
+            }
+        }
+    }
+    // Scaleの中にある聖杯を取得して、掴めない・掴める状態にするメソッド
+    public void ChangeGrabbableState(bool grabbable)
+    {
+        // 全ての聖杯を取得
+        GameObject[] chalices = GameObject.FindGameObjectsWithTag("Chalice");
+        foreach (GameObject chalice in chalices)
+        {
+            Chalice chaliceScript = chalice.GetComponent<Chalice>();
+            // 測りの中にある聖杯のみ掴めない・掴める状態にする
+            if(chaliceScript.currentPosition == Chalice.ChalicePosition.InScale)
+            {
+                chalice.transform.parent.gameObject.GetComponent<BoxCollider>().enabled = grabbable;
             }
         }
     }

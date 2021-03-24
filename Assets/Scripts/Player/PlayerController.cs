@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
     // Playerの現在の状態
     public State currentState;
     // Playerの移動に関する変数群
-    private float angleSpeed = 45.0f;
-    private float moveSpeed = 2.0f;
+    private float angleSpeed = 30.0f;
+    private float moveSpeed = 1.35f;
     private float speedMultiplier = 0.02f;
     // 顔が向いてる方向
     [SerializeField]
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         // HMD内にデバッグ表示方法 表示するものは一つにすること
         // OVRDebugConsole.Log(move.ToString("f5"));
         // OVRDebugConsole.instance.AddMessage(move.ToString() + " : Time.deltaTime", Color.white);
-        OVRDebugConsole.Log(currentState.ToString());
+        // OVRDebugConsole.Log(currentState.ToString());
     }
 
     // 現在の状態を変更するメソッド

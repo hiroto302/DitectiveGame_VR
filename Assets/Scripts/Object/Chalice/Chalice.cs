@@ -41,6 +41,19 @@ public class Chalice : MonoBehaviour
     // SE
     [SerializeField]
     SE se = null;
+    // Chaliceが測りの中にあるかどうか
+    public enum ChalicePosition
+    {
+        OutScale,
+        InScale
+    }
+    // 現在の位置
+    public ChalicePosition currentPosition;
+    // 状態を変更するメソッド
+    public void SetChalicePosition(ChalicePosition position)
+    {
+        currentPosition = position;
+    }
 
     void Reset()
     {
@@ -108,6 +121,8 @@ public class Chalice : MonoBehaviour
         // DropObjectの生成・変数の初期化
         InstantiateDropObject();
         dropObjectScript = dropObject.GetComponent<DropObject>();
+        //初期の位置
+        SetChalicePosition(ChalicePosition.OutScale);
     }
 
     void Update()
