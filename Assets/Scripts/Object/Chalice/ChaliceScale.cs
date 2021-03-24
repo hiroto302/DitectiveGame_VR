@@ -28,6 +28,9 @@ public class ChaliceScale : MonoBehaviour
     float speed = 0.002f;
     // 符号 正(up) or 負(down)
     float sign;
+    // Chaliceの計測・侵入フラグ
+    bool intoChaliceScale = false;
+
     // SE
     [SerializeField]
     SE se = null;
@@ -51,17 +54,30 @@ public class ChaliceScale : MonoBehaviour
     {
         if(other.gameObject.tag == "Chalice")
         {
-            totalWeight += other.gameObject.GetComponent<Chalice>().weight;
-            sign = -1.0f;
-            // SE 音 柱の移動音
-            if(totalWeight >= 0 && totalWeight <= 3.0f)
+            intoChaliceScale = true;
+        }
+    }
+    // 測り置かれている重りの取得
+    void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Chalice")
+        {
+            if(OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) == 0 && intoChaliceScale == true)
             {
-                se.PlaySE(0);
-            }
-            if(totalWeight >= 3.0f)
-            {
-                // 完了音のフラグ
-                playSE = true;
+                totalWeight += other.gameObject.GetComponent<Chalice>().weight;
+                sign = -1.0f;
+                // SE 音 柱の移動音
+                if(totalWeight >= 0 && totalWeight <= 3.0f)
+                {
+                    se.PlaySE(0);
+                }
+                if(totalWeight >= 3.0f)
+                {
+                    // 完了音のフラグ
+                    playSE = true;
+                }
+                // chaliceを置いた時、侵入フラグの初期化
+                intoChaliceScale = false;
             }
         }
     }
@@ -76,6 +92,8 @@ public class ChaliceScale : MonoBehaviour
             {
                 se.PlaySE(0);
             }
+            // 聖杯を取り出した時、侵入フラグの初期化
+            intoChaliceScale = false;
         }
     }
 
