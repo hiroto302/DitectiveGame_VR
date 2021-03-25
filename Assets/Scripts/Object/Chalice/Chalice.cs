@@ -106,10 +106,10 @@ public class Chalice : MonoBehaviour
             // 水が落ちる音
             se.PlaySE(0);
         }
-        else if(containedScale == "Sand")
+        if(containedScale == "Sand")
         {
             // 砂が落ちる音
-            se.PlaySE(1);
+            se.PlaySE(1, 0.9f);
         }
         // containeScaleの初期化
         containedScale = "";
@@ -132,5 +132,23 @@ public class Chalice : MonoBehaviour
         {
             DropScaleWeight();
         }
+    }
+
+    // 聖杯を掴めない状態にするメソッド
+    public void NoGrabbable()
+    {
+        transform.parent.gameObject.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    // ChaliceScaleの中にある時に扱うメソッド
+    // DropObjectを停止状態にする
+    public void StopDropObject()
+    {
+        dropObject.GetComponent<Rigidbody>().isKinematic = true;
+    }
+    // DropObjectを動く状態にする
+    public void MoveDropObject()
+    {
+        dropObject.GetComponent<Rigidbody>().isKinematic = false;
     }
 }

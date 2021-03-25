@@ -37,4 +37,12 @@ public class Sand : ScaleWeight
             }
         }
     }
+    // 重りが追加された時、DropObject動作開始
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Chalice")
+        {
+            other.gameObject.GetComponentInChildren<DropObject>().ChangeIsKinematic();
+        }
+    }
 }

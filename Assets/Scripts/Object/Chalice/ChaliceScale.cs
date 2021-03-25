@@ -30,6 +30,8 @@ public class ChaliceScale : MonoBehaviour
     float sign;
     // Chaliceの計測・侵入フラグ
     bool intoChaliceScale = false;
+    // totalWeightが3.0以上でScaleDoorを閉じることができる条件を満たしている時
+    bool fullWeight = false;
 
     // SE
     [SerializeField]
@@ -46,7 +48,8 @@ public class ChaliceScale : MonoBehaviour
         }
         // 現在位置の初期化
         currentPosition = scalePoints[(int)totalWeight].position;
-        standardPoint.position = scalePoints[Mathf.CeilToInt(totalWeight)].position;
+        // standardPoint.position = scalePoints[Mathf.CeilToInt(totalWeight)].position;
+        standardPoint.position = scalePoints[Mathf.FloorToInt(totalWeight)].position;
     }
 
     // 測り置かれている重りの取得
@@ -55,6 +58,13 @@ public class ChaliceScale : MonoBehaviour
         if(other.gameObject.tag == "Chalice")
         {
             intoChaliceScale = true;
+            // 聖杯の位置更新
+            other.gameObject.GetComponent<Chalice>().SetChalicePosition(Chalice.ChalicePosition.InScale);
+            // ChaliceScaleの移動中、中身がこぼれないようにするための記述
+            if(other.gameObject.GetComponent<Chalice>().currentState == "fill")
+            {
+                other.gameObject.GetComponent<Chalice>().StopDropObject();
+            }
         }
     }
     // 測り置かれている重りの取得
@@ -65,20 +75,24 @@ public class ChaliceScale : MonoBehaviour
             // 聖杯を置いた時、重さが増加
             if(OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) == 0 && intoChaliceScale == true)
             {
-                totalWeight += other.gameObject.GetComponent<Chalice>().weight;
+                totalWeight = GetTotalWeight();
+
                 sign = -1.0f;
-                // SE 音 柱の移動音
-                if(totalWeight >= 0 && totalWeight <= 3.0f)
+                // SE 音
+                if(!fullWeight)
                 {
-                    se.PlaySE(0);
+                    se.PlaySE(0); // 移動音
                 }
+                // 総重量が3.0f以上の時
                 if(totalWeight >= 3.0f)
                 {
-                    // 完了音のフラグ
+                    fullWeight = true;
+                }
+                // 完了音のフラグ
+                if(fullWeight)
+                {
                     playSE = true;
                 }
-                // 聖杯の位置更新
-                other.gameObject.GetComponent<Chalice>().SetChalicePosition(Chalice.ChalicePosition.InScale);
                 // chaliceを置いた時、侵入フラグの初期化
                 intoChaliceScale = false;
             }
@@ -92,13 +106,23 @@ public class ChaliceScale : MonoBehaviour
             if(!intoChaliceScale)
             {
                 totalWeight -= other.gameObject.GetComponent<Chalice>().weight;
+                if(totalWeight < 3.0f)
+                {
+                    fullWeight = false;
+                }
                 sign = 1.0f;
                 // SE 音
-                if(totalWeight >= 0 && totalWeight <= 3.0f)
+                // totalWeightが減少し,3.0以下になった時音を鳴らす
+                if(!fullWeight)
                 {
-                    se.PlaySE(0);
+                    se.PlaySE(0);  // 移動音
                 }
                 other.gameObject.GetComponent<Chalice>().SetChalicePosition(Chalice.ChalicePosition.OutScale);
+            }
+            // DropObjectの動作再開
+            if(other.gameObject.GetComponent<Chalice>().currentState == "fill")
+            {
+                other.gameObject.GetComponent<Chalice>().MoveDropObject();
             }
             // 聖杯を取り出した時、侵入フラグの初期化
             intoChaliceScale = false;
@@ -107,11 +131,16 @@ public class ChaliceScale : MonoBehaviour
 
     void Update()
     {
+        OVRDebugConsole.Log(totalWeight.ToString());
         // 次に移動する場所
-        if(totalWeight <= 3.0f )
+        // 重さの変化に合わせ、移動場所を決定
+        if(!fullWeight)
         {
-            // 重さの変化に合わせ、移動場所を決定
-            nextPosition = scalePoints[Mathf.CeilToInt(totalWeight)].position;
+            nextPosition = scalePoints[Mathf.FloorToInt(totalWeight)].position;
+        }
+        else if(fullWeight)
+        {
+            nextPosition = scalePoints[3].position;
         }
 
         if(currentPosition != nextPosition)
@@ -160,5 +189,23 @@ public class ChaliceScale : MonoBehaviour
                 chalice.transform.parent.gameObject.GetComponent<BoxCollider>().enabled = grabbable;
             }
         }
+    }
+    // Scaleの中にある聖杯の合計の重さを取得
+    public float GetTotalWeight()
+    {
+        // totaliWeightの初期化
+        totalWeight = 0;
+        // 全ての聖杯を取得
+        GameObject[] chalices = GameObject.FindGameObjectsWithTag("Chalice");
+        foreach (GameObject chalice in chalices)
+        {
+            Chalice chaliceScript = chalice.GetComponent<Chalice>();
+            // 測りの中にある聖杯の重さを取得
+            if(chaliceScript.currentPosition == Chalice.ChalicePosition.InScale)
+            {
+                totalWeight += chaliceScript.weight;
+            }
+        }
+        return totalWeight;
     }
 }

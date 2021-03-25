@@ -9,7 +9,7 @@ using UnityEngine;
 public class ScaleDoorController : MonoBehaviour
 {
     // 扉(蓋)の状態
-    // 空いている状態、閉めることが可能な状態,固定されている状態
+    // 開いている状態、閉めることが可能な状態,固定されている状態
     public enum State
     {
         Open,
@@ -51,11 +51,9 @@ public class ScaleDoorController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ドアに触れたうよ");
         if(other.gameObject.tag == "Hand" && currentState != State.Fixed)
         {
             SetState(State.Close);
-            Debug.Log("close状態にするよ");
         }
     }
 
@@ -91,6 +89,12 @@ public class ScaleDoorController : MonoBehaviour
         {
             // 固定される音
             se.PlaySE(0);
+            // 聖杯を掴めない状態にする
+            GameObject[] chalices = GameObject.FindGameObjectsWithTag("Chalice");
+            foreach (var chalice in chalices)
+            {
+                chalice.GetComponent<Chalice>().NoGrabbable();
+            }
         }
     }
 }

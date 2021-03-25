@@ -8,6 +8,7 @@ TagManager:
   - ScaleWeight
   - Chalice
   - PointingDirection
+  - DropObject
   layers:
   - Default
   - TransparentFX
