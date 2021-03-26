@@ -7723,6 +7723,7 @@ GameObject:
   - component: {fileID: 1418951523}
   - component: {fileID: 1418951525}
   - component: {fileID: 1418951524}
+  - component: {fileID: 1418951526}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -7875,6 +7876,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1418951526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418951521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5368a6fdebd8f4b4893227cdab672e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultShowControllerScript: {fileID: 1642246050727974393}
+  playerPanelController: {fileID: 8073171236799186736}
 --- !u!4 &1449334817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1353811302454933962, guid: 70cf878ed7db3485c9b3f1c0aae84aba,

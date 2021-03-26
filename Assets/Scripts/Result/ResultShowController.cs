@@ -36,6 +36,12 @@ public class ResultShowController : MonoBehaviour
     // 経過時間
     float elapsedTime = 0;
 
+    // プロパティ
+    public bool EvaluationShow
+    {
+        get {return evaluationShow;}
+    }
+
     void Reset()
     {
         // 各スクリプトの取得

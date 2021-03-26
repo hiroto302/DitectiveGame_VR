@@ -13,5 +13,7 @@ public class FirstStagePlayerPanelController : FadePanelContoroller
     {
         // 3秒かけてFadeIn
         SetFadeInTime(3.0f);
+        // 5秒かけてFadeOut
+        SetFadeOutTime(5.0f);
     }
 }
