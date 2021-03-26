@@ -9568,8 +9568,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1831897240}
   - component: {fileID: 1831897239}
+  - component: {fileID: 1831897241}
   m_Layer: 0
-  m_Name: PoinLight
+  m_Name: ScaleChaliceLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9642,13 +9643,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831897238}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.12, y: 2.44, z: 2.94}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0.15796691, y: -0.07032699, z: 0.008000213}
+  m_LocalScale: {x: 1, y: 1, z: 1.001628}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_Father: {fileID: 377459307552905500}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1831897241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831897238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d542596fb0b0d4699a72c2a4c736e797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 1831897239}
+  initialIntensity: 2
+  lowIntensity: 1
+  blinkTime: 1
+  blink: 0
 --- !u!1 &1833160113
 GameObject:
   m_ObjectHideFlags: 0
@@ -11638,7 +11656,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1831897240}
   m_Father: {fileID: 377459307953684402}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
