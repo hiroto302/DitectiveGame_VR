@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 // 現在のシーンにおいて、シーンに関するの管理を行うクラス
 // イントロの操作このクラスで行う
-public class FirstStageSceneManager : MonoBehaviour
+public class FirstStageSceneIntro : MonoBehaviour
 {
     // Intro
     bool intro = false;

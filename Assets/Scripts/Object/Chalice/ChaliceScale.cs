@@ -135,7 +135,6 @@ public class ChaliceScale : MonoBehaviour
 
     void Update()
     {
-        OVRDebugConsole.Log(totalWeight.ToString());
         // 次に移動する場所
         // 重さの変化に合わせ、移動場所を決定
         if(!fullWeight)
