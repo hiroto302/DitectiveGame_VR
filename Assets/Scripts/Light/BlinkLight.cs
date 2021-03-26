@@ -10,7 +10,7 @@ public class BlinkLight : MonoBehaviour
     // intensityの初期値
     public float initialIntensity;
     // 暗く点滅する時の値 initialIntensityより低くすること
-    public float lowIntensity = 1.0f;
+    public float transitionIntensity = 1.0f;
     // 差
     float differenceValue;
     // 点滅にかける時間
@@ -20,7 +20,7 @@ public class BlinkLight : MonoBehaviour
     // 点滅速度
     float blinkSpeed;
     // 点滅の方向
-    float blinkDirection = -1.0f;
+    float blinkDirection;
     // 点滅を開始するフラグ
     public bool blink = false;
 
@@ -33,8 +33,16 @@ public class BlinkLight : MonoBehaviour
     {
         // 初期値の取得
         initialBlinkTime = blinkTime;
-        differenceValue = initialIntensity - lowIntensity;
+        differenceValue = Mathf.Abs(initialIntensity - transitionIntensity);
         blinkSpeed = differenceValue / blinkTime;
+        if(initialIntensity < transitionIntensity)
+        {
+            blinkDirection = 1.0f;
+        }
+        else
+        {
+            blinkDirection = -1.0f;
+        }
     }
 
     void Update()
