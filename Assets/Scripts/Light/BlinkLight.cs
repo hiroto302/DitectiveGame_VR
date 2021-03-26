@@ -31,6 +31,7 @@ public class BlinkLight : MonoBehaviour
     }
     void Start()
     {
+        // 初期値の取得
         initialBlinkTime = blinkTime;
         differenceValue = initialIntensity - lowIntensity;
         blinkSpeed = differenceValue / blinkTime;
@@ -38,6 +39,7 @@ public class BlinkLight : MonoBehaviour
 
     void Update()
     {
+        // Blink機能
         if(blink)
         {
             if(0 < blinkTime)
@@ -53,8 +55,15 @@ public class BlinkLight : MonoBehaviour
         }
     }
 
+    // Blinkを開始するメソッド
     public void Blink(bool blink)
     {
         this.blink = blink;
+    }
+
+    // Lightのon/offを切り替えるメソッド
+    public void LightSetActive(bool on)
+    {
+        this.gameObject.SetActive(on);
     }
 }

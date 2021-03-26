@@ -34,12 +34,15 @@ public class ScaleDoorController : MonoBehaviour
     // SE
     [SerializeField]
     SE se = null;
+    // 子要素のBlinkLight
+    BlinkLight blinkLightScript = null;
 
     void Reset()
     {
         chaliceScale = transform.root.gameObject.GetComponentInChildren<ChaliceScale>();
         door = transform.parent.gameObject.transform.parent;
         centerPoint = transform.parent.Find("CenterPoint");
+        blinkLightScript = GetComponentInChildren<BlinkLight>();
         se = GetComponent<SE>();
     }
 
@@ -47,6 +50,7 @@ public class ScaleDoorController : MonoBehaviour
     {
         // ドアの状態の初期化
         SetState(State.Open);
+        blinkLightScript = GetComponentInChildren<BlinkLight>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -95,6 +99,8 @@ public class ScaleDoorController : MonoBehaviour
             {
                 chalice.GetComponent<Chalice>().NoGrabbable();
             }
+            // ライトをoffにする
+            blinkLightScript.LightSetActive(false);
         }
     }
 }

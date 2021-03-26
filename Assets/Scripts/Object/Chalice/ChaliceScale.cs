@@ -33,6 +33,9 @@ public class ChaliceScale : MonoBehaviour
     // totalWeightが3.0以上でScaleDoorを閉じることができる条件を満たしている時
     bool fullWeight = false;
 
+    // ドアの点滅
+    BlinkLight blinkLightScript = null;
+
     // SE
     [SerializeField]
     SE se = null;
@@ -48,8 +51,9 @@ public class ChaliceScale : MonoBehaviour
         }
         // 現在位置の初期化
         currentPosition = scalePoints[(int)totalWeight].position;
-        // standardPoint.position = scalePoints[Mathf.CeilToInt(totalWeight)].position;
         standardPoint.position = scalePoints[Mathf.FloorToInt(totalWeight)].position;
+        // 点滅スクリプトの取得
+        blinkLightScript = GetComponentInChildren<BlinkLight>();
     }
 
     // 測り置かれている重りの取得
@@ -172,6 +176,16 @@ public class ChaliceScale : MonoBehaviour
             {
                 se.PlaySE(1);
                 playSE = false;
+            }
+            // ScaleDoorを閉めることが可能なことを示すために、ライトの点滅
+            blinkLightScript.Blink(true);
+        }
+        else
+        {
+            // 閉じることができない時、点滅オフ
+            if(blinkLightScript.blink)
+            {
+                blinkLightScript.Blink(false);
             }
         }
     }
