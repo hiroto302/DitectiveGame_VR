@@ -8,12 +8,6 @@ public class ScaleInside : MonoBehaviour
     // 内側の聖杯の数
     public int insideChalice = 0;
 
-    void Update()
-    {
-        OVRDebugConsole.Log(insideChalice.ToString());
-        Debug.Log(insideChalice);
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Chalice")

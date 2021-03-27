@@ -51,6 +51,11 @@ public class ResultShowController : MonoBehaviour
         evaluationMessage = GameObject.Find("LittleCat").GetComponentInChildren<EvaluationMessage>();
         littleCatUIController = GameObject.Find("LittleCat").GetComponentInChildren<LittleCatUIController>();
     }
+    void Start()
+    {
+        // 初期化
+        firstStageEvaluation = 3;
+    }
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.K))

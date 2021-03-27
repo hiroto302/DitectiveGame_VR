@@ -11,7 +11,7 @@ public class CatMessages : MonoBehaviour
     // 分割文字
     string[] splitKeyWord = new string[1];
     // ページ数(分割回数)
-    
+
     // List<string> catMessages = new List<string>();
     void Reset()
     {
@@ -37,6 +37,7 @@ public class CatMessages : MonoBehaviour
     }
 
     // 会話文
+    // １度目の冒頭の会話
     public string FirstContactMessage()
     {
         string catMessage = "ようこそにゃ！\n我が国の探偵に立候補しくれてありがとなのにゃ"
@@ -51,6 +52,24 @@ public class CatMessages : MonoBehaviour
                             +"閉じてしまったら、フタの内側にある聖杯は持ち出すことが出来なくなるにゃ<>"
                             +"多くの聖杯を持ち出せるよう頑張るにゃ！";
         return catMessage;
+    }
+    // 2度目以降の冒頭の会話
+    public string SecondContactMessage()
+    {
+        string catMessage = "また不合格だったのかにゃ....<>"
+                            + "測りの見た目に惑わされないことが大事にゃ！<>"
+                            + "行くのにゃ！";
+        string catMessage1 = "また来たのにゃ！<>"
+                            + "測りの見た目に惑わされないことが大事にゃ！<>"
+                            + "聖杯を３つとも回収できるようがんばるにゃ！";
+        if(UnityEngine.Random.Range(0, 2) == 0)
+        {
+            return catMessage;
+        }
+        else
+        {
+            return catMessage1;
+        }
     }
     // 一言目
     public string Message1()
@@ -74,7 +93,7 @@ public class CatMessages : MonoBehaviour
     public string Message3()
     {
         string catMessage = "探偵への道のりは険しそうだにゃ";
-        string catMessage1 = "ふたの外側の聖杯は僕が回収しとくにゃ";
+        string catMessage1 = "ふたの外側の聖杯は僕が回収するにゃ";
         if(UnityEngine.Random.Range(0, 2) == 0)
         {
             return catMessage;

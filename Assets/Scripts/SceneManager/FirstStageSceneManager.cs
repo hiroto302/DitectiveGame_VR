@@ -16,6 +16,9 @@ public class FirstStageSceneManager : SceneMethods
     [SerializeField]
     FirstStagePlayerPanelController playerPanelController = null;
 
+    // チャレンジ回数
+    public static int ChallengeCount = 1;
+
     void Reset()
     {
         resultShowControllerScript = GameObject.Find("LittleCat").GetComponentInChildren<ResultShowController>();
@@ -29,6 +32,7 @@ public class FirstStageSceneManager : SceneMethods
 
     void Update()
     {
+        OVRDebugConsole.Log(ChallengeCount.ToString());
         // ゲーム結果の評価文字を表示したら次のシーンに移行開始
         if(resultShowControllerScript.EvaluationShow)
         {
@@ -40,8 +44,19 @@ public class FirstStageSceneManager : SceneMethods
             elapsedTime += Time.deltaTime;
             if(8.0f < elapsedTime)
             {
-                // LoadNextScene();
-                SceneManager.LoadScene(0);
+                // 獲得評価が３の時
+                if(ResultShowController.firstStageEvaluation == 3)
+                {
+                    // 次のシーンへ遷移
+                    LoadNextScene();
+                }
+                else
+                {
+                    // チャレンジ回数の増加
+                    ChallengeCount++;
+                    // 現在のシーンをロード
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             }
             else if(3.0f < elapsedTime)
             {

@@ -34,6 +34,12 @@ public class CatTalkController_1Stage : CatTalkController
         firstContact = true;
         currentMessage[0] = true;
     }
+    // ２度目以降の冒頭の会話
+    public void SecondContactTalk()
+    {
+        firstContact = true;
+        currentMessage[0] = true;
+    }
     // 話しかけた時の会話開始
     public void Talk1()
     {
@@ -73,7 +79,16 @@ public class CatTalkController_1Stage : CatTalkController
         {
             if(currentMessage[0])
             {
-                StartTalk(catMessages.FirstContactMessage());
+                // １度目の挑戦の時
+                if(FirstStageSceneManager.ChallengeCount == 1)
+                {
+                    StartTalk(catMessages.FirstContactMessage());
+                }
+                // ２度目以降の挑戦の時
+                else
+                {
+                    StartTalk(catMessages.SecondContactMessage());
+                }
                 currentMessage[0] = false;
                 firstContact = false;
             }
