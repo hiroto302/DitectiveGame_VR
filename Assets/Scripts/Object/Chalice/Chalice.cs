@@ -12,11 +12,6 @@ public class Chalice : MonoBehaviour
     string[] state = {"empty", "fill"};
     // 現在の状態
     public string currentState;
-    // 状態を変更するメソッド
-    public void ChangeState(int num)
-    {
-        currentState = state[num];
-    }
     // 現在加えられている重り
     public string containedScale = null;
     // 加えることができる重りである 砂・水 のオブジェクト
@@ -38,6 +33,8 @@ public class Chalice : MonoBehaviour
     // DropObjectの変数
     GameObject dropObject;
     DropObject dropObjectScript;
+    // 聖杯の親オブジェクトの初期位置
+    Vector3 parentInitialPosition;
     // SE
     [SerializeField]
     SE se = null;
@@ -49,7 +46,17 @@ public class Chalice : MonoBehaviour
     }
     // 現在の位置
     public ChalicePosition currentPosition;
-    // 状態を変更するメソッド
+    // プロパティ
+    public Vector3 ParentInitialPosition
+    {
+        get {return parentInitialPosition;}
+    }
+    // 聖杯の中身の状態を変更するメソッド
+    public void ChangeState(int num)
+    {
+        currentState = state[num];
+    }
+    // 聖杯の位置状態を変更するメソッド
     public void SetChalicePosition(ChalicePosition position)
     {
         currentPosition = position;
@@ -121,8 +128,10 @@ public class Chalice : MonoBehaviour
         // DropObjectの生成・変数の初期化
         InstantiateDropObject();
         dropObjectScript = dropObject.GetComponent<DropObject>();
-        //初期の位置
+        // 初期の位置(測りの中にあるかどうか)
         SetChalicePosition(ChalicePosition.OutScale);
+        // 親オブジェクトの初期位置の取得
+        parentInitialPosition = transform.root.position;
     }
 
     void Update()
