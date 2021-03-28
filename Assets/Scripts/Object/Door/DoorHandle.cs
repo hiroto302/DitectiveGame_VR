@@ -26,6 +26,8 @@ public class DoorHandle : MonoBehaviour
     // 回転させるドアのオブジェクト
     [SerializeField]
     protected Transform door = null;
+    // Handelに触れているか判定
+    bool touch = false;
 
     void Reset()
     {
@@ -47,6 +49,14 @@ public class DoorHandle : MonoBehaviour
         dx = radius;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Hand")
+        {
+            touch = true;
+        }
+    }
+
     // Handの座標取得・移動条件
     // Colliderの衝突判定したが、HandPoint と Handの距離から算出したりするなど色々開閉の条件なども変えるのもいいかも
     void OnTriggerStay(Collider other)
@@ -57,19 +67,31 @@ public class DoorHandle : MonoBehaviour
             handPointTransform.position = other.gameObject.transform.position;
         }
     }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Hand")
+        {
+            touch = false;
+        }
+    }
+
     void Update()
     {
-        // 対辺の取得 handPointのローカル座標から取得
-        dz = handPointTransform.localPosition.z - handPointScript.InitialPosition.z;
-        // 隣辺を求める
-        dx = Mathf.Sqrt(radius * radius - dz * dz);
-        // オイラー角取得
-        float rad = Mathf.Atan2(dz, dx);
-        // オイラー角をラジアンに変換
-        deg = rad * Mathf.Rad2Deg;
-        // 手の位置により変化したdzにより、degを算出し、それにより生まれた角度分移動
-        door.RotateAround( centerPoint.position, Vector3.up, deg);
-        // 移動させた後、HandPointをリセットする
-        handPointTransform.localPosition = handPointScript.InitialPosition;
+        if(touch)
+        {
+            // 対辺の取得 handPointのローカル座標から取得
+            dz = handPointTransform.localPosition.z - handPointScript.InitialPosition.z;
+            // 隣辺を求める
+            dx = Mathf.Sqrt(radius * radius - dz * dz);
+            // オイラー角取得
+            float rad = Mathf.Atan2(dz, dx);
+            // オイラー角をラジアンに変換
+            deg = rad * Mathf.Rad2Deg;
+            // 手の位置により変化したdzにより、degを算出し、それにより生まれた角度分移動
+            door.RotateAround( centerPoint.position, Vector3.up, deg);
+            // 移動させた後、HandPointをリセットする
+            handPointTransform.localPosition = handPointScript.InitialPosition;
+        }
     }
 }

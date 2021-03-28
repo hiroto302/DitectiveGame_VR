@@ -3192,15 +3192,20 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 8874068375662259037, guid: 7601e1beea2844804bc5667408965692,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8874068375642587493, guid: 7601e1beea2844804bc5667408965692,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8874068375734335459, guid: 7601e1beea2844804bc5667408965692,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7601e1beea2844804bc5667408965692, type: 3}
