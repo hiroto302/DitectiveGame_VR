@@ -32,7 +32,6 @@ public class FirstStageSceneManager : SceneMethods
 
     void Update()
     {
-        OVRDebugConsole.Log(ChallengeCount.ToString());
         // ゲーム結果の評価文字を表示したら次のシーンに移行開始
         if(resultShowControllerScript.EvaluationShow)
         {

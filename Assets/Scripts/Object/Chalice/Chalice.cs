@@ -35,6 +35,8 @@ public class Chalice : MonoBehaviour
     DropObject dropObjectScript;
     // 聖杯の親オブジェクトの初期位置
     Vector3 parentInitialPosition;
+    // 聖杯の親オブジェクトの初期
+    Quaternion parentInitialQuaternion;
     // SE
     [SerializeField]
     SE se = null;
@@ -50,6 +52,10 @@ public class Chalice : MonoBehaviour
     public Vector3 ParentInitialPosition
     {
         get {return parentInitialPosition;}
+    }
+    public Quaternion ParentInitialRotation
+    {
+        get {return parentInitialQuaternion;}
     }
     // 聖杯の中身の状態を変更するメソッド
     public void ChangeState(int num)
@@ -130,12 +136,15 @@ public class Chalice : MonoBehaviour
         dropObjectScript = dropObject.GetComponent<DropObject>();
         // 初期の位置(測りの中にあるかどうか)
         SetChalicePosition(ChalicePosition.OutScale);
-        // 親オブジェクトの初期位置の取得
-        parentInitialPosition = transform.root.position;
+        // 親オブジェクトの初期位置・Quaternion 取得
+        parentInitialPosition = transform.parent.position;
+        parentInitialQuaternion = transform.parent.rotation;
+
     }
 
     void Update()
     {
+        Debug.Log(transform.rotation.GetType());
         // 容器内が満たされている時,DropGameObjectが落ちたら実行する処理
         if(dropObjectScript.velocityY > 3.0f && currentState == state[1])
         {

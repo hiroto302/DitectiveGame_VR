@@ -10,7 +10,7 @@ public class BlinkLight : MonoBehaviour
     // intensityの初期値
     public float initialIntensity;
     // 暗く点滅する時の値 initialIntensityより低くすること
-    public float transitionIntensity = 1.0f;
+    public float transitionIntensity = 0.2f;
     // 差
     float differenceValue;
     // 点滅にかける時間

@@ -25,7 +25,6 @@ public class InitializeChalicePosition : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        // 3個侵入した時、ここを通過しない
         if(other.gameObject.tag == "Chalice" )
         {
             chalice = other.gameObject;
@@ -56,7 +55,10 @@ public class InitializeChalicePosition : MonoBehaviour
             if(time < 0)
             {
                 // Chaliceが子要素のため、親要素の位置を戻す
+                chalice.transform.root.rotation = chalice.GetComponent<Chalice>().ParentInitialRotation;
                 chalice.transform.root.position = chalice.GetComponent<Chalice>().ParentInitialPosition;
+                // 戻ったことを知らせるse
+                chalice.GetComponent<SE>().PlaySE(2);
                 // 初期値のリセット
                 time = initialTime;
                 invasion = false;
