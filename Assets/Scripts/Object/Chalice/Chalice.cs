@@ -84,13 +84,15 @@ public class Chalice : MonoBehaviour
     public void InstantiateSand()
     {
         sandObject = Instantiate(sand, scalePosition.position, Quaternion.identity) as GameObject;
+        sandObject.transform.rotation = gameObject.transform.parent.rotation;
         sandObject.transform.parent = gameObject.transform;
     }
     // 聖杯の中に水を生成するメソッド
     public void InstantiateWater()
     {
-        sandObject = Instantiate(water, scalePosition.position, Quaternion.identity) as GameObject;
-        sandObject.transform.parent = gameObject.transform;
+        waterObject = Instantiate(water, scalePosition.position, Quaternion.identity) as GameObject;
+        waterObject.transform.rotation = gameObject.transform.parent.rotation;
+        waterObject.transform.parent = gameObject.transform;
     }
     // DropObjectを生成するメソッド
     void InstantiateDropObject()
@@ -144,7 +146,6 @@ public class Chalice : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(transform.rotation.GetType());
         // 容器内が満たされている時,DropGameObjectが落ちたら実行する処理
         if(dropObjectScript.velocityY > 3.0f && currentState == state[1])
         {
