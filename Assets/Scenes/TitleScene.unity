@@ -595,7 +595,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Ditective_VR
+  m_Text: 'Chalice Room
 
 '
 --- !u!222 &907060801
@@ -883,7 +883,7 @@ GameObject:
   - component: {fileID: 1642961311}
   - component: {fileID: 1642961310}
   m_Layer: 5
-  m_Name: EndSceneCanvas
+  m_Name: TittleSceneCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -120,7 +120,7 @@ public class ResultShowController : MonoBehaviour
         littleCatMessage.SetMessage(messages[firstStageEvaluation]());
         // 星の数
         starController.SetEvaluation(firstStageEvaluation);
-        // 評価の内容
+    // 評価の内容
         evaluationMessage.SetMessage();
     }
     // 結果を表示するメソッド
