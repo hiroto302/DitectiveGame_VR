@@ -51,17 +51,15 @@ public class ResultShowController : MonoBehaviour
         evaluationMessage = GameObject.Find("LittleCat").GetComponentInChildren<EvaluationMessage>();
         littleCatUIController = GameObject.Find("LittleCat").GetComponentInChildren<LittleCatUIController>();
     }
+
     void Start()
     {
         // 初期化
         firstStageEvaluation = 3;
     }
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            ShowResult();
-        }
         if(showResult)
         {
             // 表示させる結果の設定
@@ -106,27 +104,20 @@ public class ResultShowController : MonoBehaviour
     }
 
     // 結果内容の設定
+    // デリゲートを利用して記述 LittaleCatMesssageの略
+    delegate string Lcm();
     public void SetResult()
     {
+        Lcm[] messages = new Lcm[4];
+        // littleCatのmessageを格納するデリゲート
+        messages[0] = littleCatMessage.BadMessage;
+        messages[1] = littleCatMessage.NormalMessage;
+        messages[2] = littleCatMessage.GoodMessage;
+        messages[3] = littleCatMessage.VeryGoodMessage;
         // 評価
         firstStageEvaluation -= scaleInside.insideChalice;
-        // littleCatMessage
-        if(firstStageEvaluation == 3)
-        {
-            littleCatMessage.SetMessage(littleCatMessage.VeryGoodMessage());
-        }
-        else if(firstStageEvaluation == 2)
-        {
-            littleCatMessage.SetMessage(littleCatMessage.GoodMessage());
-        }
-        else if(firstStageEvaluation == 1)
-        {
-            littleCatMessage.SetMessage(littleCatMessage.NormalMessage());
-        }
-        else if(firstStageEvaluation == 0)
-        {
-            littleCatMessage.SetMessage(littleCatMessage.BadMessage());
-        }
+        // 評価に対応したlittleCatMessageを表示
+        littleCatMessage.SetMessage(messages[firstStageEvaluation]());
         // 星の数
         starController.SetEvaluation(firstStageEvaluation);
         // 評価の内容
