@@ -4866,6 +4866,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b437f1c2454a2c409b1b7f35e69d661, type: 3}
+--- !u!1 &779997271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8874068375642587493, guid: 7601e1beea2844804bc5667408965692,
+    type: 3}
+  m_PrefabInstance: {fileID: 498748469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &784875229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6348,6 +6354,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1030302487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8874068375734335459, guid: 7601e1beea2844804bc5667408965692,
+    type: 3}
+  m_PrefabInstance: {fileID: 498748469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1031675553 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 572314954228739163, guid: e9b552f5777284474934bf45a390b5a3,
@@ -11180,6 +11192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2025a28f8c3f840859950a3bda3ed151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OVRDebugConsoleObject: {fileID: 1030302487}
+  OVRDebugConsoleOutputObject: {fileID: 779997271}
+  testPlay: 0
 --- !u!4 &2111689422
 Transform:
   m_ObjectHideFlags: 0
