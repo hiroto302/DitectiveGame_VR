@@ -17,6 +17,8 @@ public class InitializeChalicePositionCeiling : MonoBehaviour
             // Chaliceが子要素のため、親要素の位置を初期位置に戻す
             chalice.transform.root.rotation = chaliceScript.ParentInitialRotation;
             chalice.transform.root.position = chaliceScript.ParentInitialPosition;
+            // 元の位置に戻ったことを知らせるSE
+            chalice.GetComponent<SE>().PlaySE(2);
         }
     }
 }
