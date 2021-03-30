@@ -119,12 +119,12 @@ public class Chalice : MonoBehaviour
         if(containedScale == "Water")
         {
             // 水が落ちる音
-            se.PlaySE(0);
+            se.PlaySE(0, 0.4f);
         }
         if(containedScale == "Sand")
         {
             // 砂が落ちる音
-            se.PlaySE(1, 0.9f);
+            se.PlaySE(1, 1.0f);
         }
         // containeScaleの初期化
         containedScale = "";

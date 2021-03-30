@@ -92,7 +92,7 @@ public class ScaleDoorController : MonoBehaviour
         if(state == State.Fixed)
         {
             // 固定される音
-            se.PlaySE(0);
+            se.PlaySE(0, 0.35f);
             // 聖杯を掴めない状態にする
             GameObject[] chalices = GameObject.FindGameObjectsWithTag("Chalice");
             foreach (var chalice in chalices)

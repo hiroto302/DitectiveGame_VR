@@ -52,7 +52,7 @@ public class NextStageDoorController : MonoBehaviour
                 if(playSE)
                 {
                     // 扉が開く音
-                    se.PlaySE(0, 0.6f);
+                    se.PlaySE(0, 0.9f);
                     playSE = false;
                 }
                 gameObject.transform.RotateAround(centerPoint.position, Vector3.up, anglerVelocity * Time.deltaTime);

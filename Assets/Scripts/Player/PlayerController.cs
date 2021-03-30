@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 if(elapsedTime > 0.8f)
                 {
-                    se.PlaySE(0, 0.5f);
+                    se.PlaySE(0, 0.9f);
                     elapsedTime = 0;
                 }
             }
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 if(elapsedTime > 1.0f)
                 {
-                    se.PlaySE(0, 0.4f);
+                    se.PlaySE(0, 0.8f);
                     elapsedTime = 0;
                 }
             }
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 if(elapsedTime > 1.5f)
                 {
-                    se.PlaySE(2, 0.3f);
+                    se.PlaySE(2, 0.7f);
                     elapsedTime = 0;
                 }
             }

@@ -68,12 +68,6 @@ public class Message : MonoBehaviour
         {
             se = GetComponent<SE>();
         }
-
-        // 表示するメッセージの設定
-        // SetMessage(allMessage);
-        // MessageStart();
-
-        // aud = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -147,7 +141,7 @@ public class Message : MonoBehaviour
                     elapsedTime = 0f;
                     isOneMessage = false;
                     // クリック音再生
-                    se.PlaySE(0, 0.5f);
+                    se.PlaySE(0, 1.0f);
 
                     // メッセージが全部表示された後の処理。ゲームオブジェクト自体を非表示にする
                     if (messageNum >= splitMessage.Length)
