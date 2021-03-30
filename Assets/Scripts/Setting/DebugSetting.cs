@@ -10,14 +10,18 @@ public class DebugSetting : MonoBehaviour
     GameObject OVRDebugConsoleObject = null;
     [SerializeField]
     GameObject OVRDebugConsoleOutputObject = null;
+    // playerの操作
+    [SerializeField]
+    DebugController debugControllerScript = null;
 
     public bool testPlay = true;
 
     void Reset()
     {
-        // オブジェクトの取得
+        // 参照先のの取得
         OVRDebugConsoleObject = GameObject.Find("OVRDebugConsole");
         OVRDebugConsoleOutputObject = GameObject.Find("OVRDebugConsoleOutput");
+        debugControllerScript = GameObject.Find("Player").GetComponent<DebugController>();
     }
 
     void Start()
@@ -32,5 +36,7 @@ public class DebugSetting : MonoBehaviour
         // OVRDebugConsole.Logの表示・非表示
         OVRDebugConsoleObject.SetActive(testPlay);
         OVRDebugConsoleOutputObject.SetActive(testPlay);
+        // playerの操作無効
+        debugControllerScript.enabled = testPlay;
     }
 }
