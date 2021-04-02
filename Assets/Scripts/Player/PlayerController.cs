@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 // Playerのスクリプト
 // オキュラスクエスト用 transform.TranslateによるPlayerの移動方法
-
 // Translate の 移動法でカクツク原因は, time.deltaTimeを利用すると起こるのが一つの原因であった
 // 現在の解決方法
 // 1. FPSが約40であるため、その乗数をかける
@@ -27,7 +26,8 @@ public class PlayerController : MonoBehaviour
     Transform moveTarget = null;
 
     // オキュラスクエストの入力値
-
+    Vector2 inputLeftStick;
+    Vector2 inputRightStick;
     float x, y;
     Vector3 move = Vector3.zero;
 
@@ -54,16 +54,6 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         SetState(State.Normal);
-        // Scene scene = SceneManager.GetActiveScene();
-        // // 1_stageでは最初猫の説明から始まるので、状態をTalkに変更
-        // if(scene.name == "1_stage")
-        // {
-        //     SetState(State.Talk);
-        // }
-        // else
-        // {
-        //     SetState(State.Normal);
-        // }
     }
     void Update()
     {
@@ -71,52 +61,63 @@ public class PlayerController : MonoBehaviour
         if(currentState == State.Normal)
         {
             // 左スティック入力 角度・旋回
-            Vector2 leftStick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-            transform.Rotate(new Vector3(0, leftStick.x, 0) * angleSpeed * speedMultiplier);
-            // transform.Rotate(new Vector3(0, leftStick.x, 0) * angleSpeed * Time.deltaTime);
+            inputLeftStick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+            if(inputLeftStick.sqrMagnitude > 0)
+            {
+                MoveDirection(inputLeftStick);
+            }
 
             // 右スティック入力 方向・移動
-            Vector2 rightStick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
-            // x, y -1.0 ~ 1.0 の値
-            x = rightStick.x;
-            y = rightStick.y;
-            move = (x * moveTarget.right.normalized + y * moveTarget.forward.normalized ) * moveSpeed * speedMultiplier;
-            // move = (x * moveTarget.right.normalized + y * moveTarget.forward.normalized ) * moveSpeed * Time.deltaTime;
-            transform.Translate(move, Space.World);
-
-            // 足音 方向・移動
-            if(Mathf.Abs(x) > 0.8f || Mathf.Abs(y) > 0.8f)
+            inputRightStick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+            if(inputRightStick.sqrMagnitude > 0)
             {
-                elapsedTime += Time.deltaTime;
-                if(elapsedTime > 0.8f)
-                {
-                    se.PlaySE(0, 0.9f);
-                    elapsedTime = 0;
-                }
-            }
-            else if(Mathf.Abs(x) > 0.5f || Mathf.Abs(y) > 0.5f)
-            {
-                elapsedTime += Time.deltaTime;
-                if(elapsedTime > 1.0f)
-                {
-                    se.PlaySE(0, 0.8f);
-                    elapsedTime = 0;
-                }
-            }
-            else if(Mathf.Abs(x) > 0.1f || Mathf.Abs(y) > 0.1f)
-            {
-                elapsedTime += Time.deltaTime;
-                if(elapsedTime > 1.5f)
-                {
-                    se.PlaySE(2, 0.7f);
-                    elapsedTime = 0;
-                }
+                MovePosition(inputRightStick);
             }
         }
-        // HMD内にデバッグ表示方法 表示するものは一つにすること
-        // OVRDebugConsole.Log(move.ToString("f5"));
-        // OVRDebugConsole.instance.AddMessage(move.ToString() + " : Time.deltaTime", Color.white);
-        // OVRDebugConsole.Log(currentState.ToString());
+    }
+
+    // 旋回するメソッド
+    void MoveDirection(Vector2 inputLeftStick)
+    {
+        transform.Rotate(new Vector3(0, inputLeftStick.x, 0) * angleSpeed * speedMultiplier);
+    }
+
+    // 移動するメソッド
+    void MovePosition(Vector2 inputRightStick)
+    {
+        // x, y -1.0 ~ 1.0 の値
+        x = inputRightStick.x;
+        y = inputRightStick.y;
+        move = (x * moveTarget.right.normalized + y * moveTarget.forward.normalized ) * moveSpeed * speedMultiplier;
+        transform.Translate(move, Space.World);
+        // 足音 方向・移動
+        if(Mathf.Abs(x) > 0.8f || Mathf.Abs(y) > 0.8f)
+        {
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime > 0.8f)
+            {
+                se.PlaySE(0, 0.9f);
+                elapsedTime = 0;
+            }
+        }
+        else if(Mathf.Abs(x) > 0.5f || Mathf.Abs(y) > 0.5f)
+        {
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime > 1.0f)
+            {
+                se.PlaySE(0, 0.8f);
+                elapsedTime = 0;
+            }
+        }
+        else if(Mathf.Abs(x) > 0.1f || Mathf.Abs(y) > 0.1f)
+        {
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime > 1.5f)
+            {
+                se.PlaySE(2, 0.7f);
+                elapsedTime = 0;
+            }
+        }
     }
 
     // 現在の状態を変更するメソッド
@@ -137,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
     // PointingDirectionの表示・非表示
     // 会話状態の時のみ、左右の手のPointingDirectionを有効にする
-    // optionの実時、右手のAボタンを使用するので右手のPointingDirectionを表示することに変更
+    // optionの実行時、右手のAボタンを使用するので右手のPointingDirectionを表示することに変更
     void ShowPointingDirection(bool show)
     {
         rightPointingDirection.SetActive(show);
