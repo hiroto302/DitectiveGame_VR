@@ -27,13 +27,14 @@ public class Water : ScaleWeight
     {
         if(other.gameObject.CompareTag(ChaliceTag))
         {
+            Chalice chaliceScript = other.gameObject.GetComponent<Chalice>();
             // 聖杯の状態が空の時、下記を実行
-            if(other.gameObject.GetComponent<Chalice>().currentState == "empty")
+            if(chaliceScript.currentState == "empty")
             {
-                other.gameObject.GetComponent<Chalice>().AddWeight(weight);
-                other.gameObject.GetComponent<Chalice>().ChangeState(1);
-                other.gameObject.GetComponent<Chalice>().InstantiateWater();
-                other.gameObject.GetComponent<Chalice>().containedScale = typeName;
+                chaliceScript.AddWeight(weight);
+                chaliceScript.ChangeState(1);
+                chaliceScript.InstantiateWater();
+                chaliceScript.containedScale = typeName;
                 // 聖杯に水が入る音
                 se.PlaySE(0);
             }
