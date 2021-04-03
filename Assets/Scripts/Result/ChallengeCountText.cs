@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChallenCountText : MonoBehaviour
+public class ChallengeCountText : MonoBehaviour
 {
     [SerializeField]
     Text challengeCountText = null;
