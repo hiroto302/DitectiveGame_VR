@@ -23,6 +23,8 @@ public abstract class Option : MonoBehaviour
     // Optionを表示しているPanelを操作するスクリプト
     [SerializeField]
     protected OptionPanelController optionPanelController = null;
+    // PointingDirectionのタグ
+    const string PointingDirectionTag = "PointingDirection";
     // SE
     [SerializeField]
     SE se = null;
@@ -50,7 +52,7 @@ public abstract class Option : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PointingDirection")
+        if(other.gameObject.CompareTag(PointingDirectionTag))
         {
             // 選択肢に触れた時、色を変更
             SetEmissionColor(color2);
@@ -61,14 +63,14 @@ public abstract class Option : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         // PlayerのPointingDirectionに触れていて、かつAボタンを押された時実行するメソッド
-        if(other.gameObject.tag == "PointingDirection" && OVRInput.GetDown(OVRInput.Button.One))
+        if(other.gameObject.CompareTag(PointingDirectionTag) && OVRInput.GetDown(OVRInput.Button.One))
         {
             OptionExecution();
             // 選択時の音
             se.PlaySE(0);
         }
         // Debug作業中の記述
-        if(other.gameObject.tag == "PointingDirection" && Input.GetKeyDown(KeyCode.O))
+        if(other.gameObject.CompareTag(PointingDirectionTag) && Input.GetKeyDown(KeyCode.O))
         {
             OptionExecution();
             se.PlaySE(0);
@@ -77,7 +79,7 @@ public abstract class Option : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         // 選択外になった時、色を初期状態に戻す
-        if(other.gameObject.tag == "PointingDirection")
+        if(other.gameObject.CompareTag(PointingDirectionTag))
         {
             SetEmissionColor(color1);
         }

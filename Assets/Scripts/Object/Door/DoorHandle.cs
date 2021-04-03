@@ -28,6 +28,8 @@ public class DoorHandle : MonoBehaviour
     protected Transform door = null;
     // Handelに触れているか判定
     bool touch = false;
+    // Handのタグ名
+    const string HandTag = "Hand";
 
     void Reset()
     {
@@ -51,7 +53,7 @@ public class DoorHandle : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Hand")
+        if(other.gameObject.CompareTag(HandTag))
         {
             touch = true;
         }
@@ -61,7 +63,7 @@ public class DoorHandle : MonoBehaviour
     // Colliderの衝突判定したが、HandPoint と Handの距離から算出したりするなど色々開閉の条件なども変えるのもいいかも
     void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "Hand")
+        if(other.gameObject.CompareTag(HandTag))
         {
             // ワールド座標のHandの位置取得・HandPointの移動
             handPointTransform.position = other.gameObject.transform.position;
@@ -70,7 +72,7 @@ public class DoorHandle : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Hand")
+        if(other.gameObject.CompareTag(HandTag))
         {
             touch = false;
         }

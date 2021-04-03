@@ -36,6 +36,8 @@ public class ScaleDoorController : MonoBehaviour
     SE se = null;
     // 子要素のBlinkLight
     BlinkLight blinkLightScript = null;
+    // Handのタグ名
+    const string HandTag = "Hand";
 
     void Reset()
     {
@@ -55,7 +57,7 @@ public class ScaleDoorController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Hand" && currentState != State.Fixed)
+        if(other.gameObject.CompareTag(HandTag) && currentState != State.Fixed)
         {
             SetState(State.Close);
         }
@@ -63,7 +65,7 @@ public class ScaleDoorController : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Hand" && currentState != State.Fixed)
+        if(other.gameObject.CompareTag(HandTag) && currentState != State.Fixed)
         {
             SetState(State.Open);
         }

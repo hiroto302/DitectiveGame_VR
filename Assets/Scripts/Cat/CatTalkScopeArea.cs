@@ -7,12 +7,13 @@ public class CatTalkScopeArea : TalkScopeArea
 {
     // 同階層に会話文を格納
     [SerializeField]
-
     CatMessages catMessages = null;
     [SerializeField]
     CatTalkController_1Stage catTalkController = null;
     // Catのスクリプト
     Cat cat;
+    // Playerのタグ名
+    const string PlayerTag = "Player";
 
     // SE
     [SerializeField]
@@ -34,7 +35,7 @@ public class CatTalkScopeArea : TalkScopeArea
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.gameObject.CompareTag(PlayerTag))
         {
             showIcon = true;
             // アイコンを表示
@@ -46,7 +47,7 @@ public class CatTalkScopeArea : TalkScopeArea
     void OnTriggerStay(Collider other)
     {
         // 相手がPlayerかつNormal状態である時
-        if(other.tag == "Player" && playerController.currentState != PlayerController.State.Talk)
+        if(other.gameObject.CompareTag(PlayerTag) && playerController.currentState != PlayerController.State.Talk)
         {
             talkIcon.SetActive(true);
             // 会話開始
@@ -55,7 +56,6 @@ public class CatTalkScopeArea : TalkScopeArea
                 cat.SetState(Cat.State.Talk);
                 // Playerを会話状態に変更
                 playerController.SetState(PlayerController.State.Talk);
-                // playerController.SetState(PlayerController.State.Normal);
                 // アイコンを非表示
                 talkIcon.SetActive(false);
                 showIcon = false;
@@ -64,7 +64,7 @@ public class CatTalkScopeArea : TalkScopeArea
             }
         }
         // 会話状態の時
-        else if(other.tag == "Player" && playerController.currentState == PlayerController.State.Talk)
+        else if(other.gameObject.CompareTag(PlayerTag) && playerController.currentState == PlayerController.State.Talk)
         {
             // アイコン非表示
             talkIcon.SetActive(false);

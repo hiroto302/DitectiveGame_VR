@@ -16,6 +16,9 @@ public class TalkScopeArea : MonoBehaviour
     protected Transform playerTarnsform;
     protected PlayerController playerController;
     protected float rotationSpeed = 1.0f;
+    // Playerのタグ名
+    const string PlayerTag = "Player";
+
     void Reset()
     {
         // Talk_IconをTalkScopeAreaの子(0番目にセット)
@@ -34,7 +37,7 @@ public class TalkScopeArea : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.gameObject.CompareTag(PlayerTag))
         {
             showIcon = true;
             // アイコンを表示
@@ -45,7 +48,7 @@ public class TalkScopeArea : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.gameObject.CompareTag(PlayerTag))
         {
             showIcon = false;
             // アイコンを非表示

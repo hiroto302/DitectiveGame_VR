@@ -5,6 +5,8 @@ using UnityEngine;
 // 水 聖杯に追加できる重り
 public class Water : ScaleWeight
 {
+    // Chaliceのタグ名
+    const string ChaliceTag  = "Chalice";
     // SE
     [SerializeField]
     SE se = null;
@@ -23,7 +25,7 @@ public class Water : ScaleWeight
     // 聖杯に触れたら、聖杯に水の重りを追加
     public override void OnTriggerEnter(Collider other)
     {
-        if( other.gameObject.tag == "Chalice")
+        if(other.gameObject.CompareTag(ChaliceTag))
         {
             // 聖杯の状態が空の時、下記を実行
             if(other.gameObject.GetComponent<Chalice>().currentState == "empty")
@@ -40,7 +42,7 @@ public class Water : ScaleWeight
     // 重りが追加された時、DropObject動作開始
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Chalice")
+        if (other.gameObject.CompareTag(ChaliceTag))
         {
             other.gameObject.GetComponentInChildren<DropObject>().ChangeIsKinematic();
         }

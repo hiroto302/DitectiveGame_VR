@@ -32,6 +32,8 @@ public class ChaliceScale : MonoBehaviour
     bool intoChaliceScale = false;
     // totalWeightが3.0以上でScaleDoorを閉じることができる条件を満たしている時
     bool fullWeight = false;
+    // Chaliceのタグ名
+    const string ChaliceTag = "Chalice";
 
     // ドアの点滅
     BlinkLight blinkLightScript = null;
@@ -59,7 +61,7 @@ public class ChaliceScale : MonoBehaviour
     // 測り置かれている重りの取得
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Chalice")
+        if(other.gameObject.CompareTag(ChaliceTag))
         {
             intoChaliceScale = true;
             // 聖杯の位置更新
@@ -74,7 +76,7 @@ public class ChaliceScale : MonoBehaviour
     // 測り置かれている重りの取得
     void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "Chalice")
+        if(other.gameObject.CompareTag(ChaliceTag))
         {
             // 聖杯を置いた時、重さが増加
             if(OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) == 0 && intoChaliceScale == true)
@@ -104,7 +106,7 @@ public class ChaliceScale : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Chalice")
+        if(other.gameObject.CompareTag(ChaliceTag))
         {
             // 置いてある重りを測りから取り除いた時、重さが減少
             if(!intoChaliceScale)

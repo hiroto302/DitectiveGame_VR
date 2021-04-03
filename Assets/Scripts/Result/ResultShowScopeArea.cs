@@ -9,6 +9,8 @@ public class ResultShowScopeArea : MonoBehaviour
     PlayerController playerController = null;
     [SerializeField]
     ResultShowController resultShowController = null;
+    // Playerのタグ名 キャッシュ
+    const string PlayerTag = "Player";
 
 
     void Reset()
@@ -20,7 +22,7 @@ public class ResultShowScopeArea : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag(PlayerTag))
         {
             // Playerの状態変更
             playerController.SetState(PlayerController.State.Talk);
